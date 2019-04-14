@@ -1,6 +1,11 @@
 # See https://www.dartlang.org/guides/libraries/private-files
 
+#IDEA
+.idea/
+*.iml
+
 # Files and directories created by pub
+.DS_STORE
 .dart_tool/
 .packages
 .pub/
