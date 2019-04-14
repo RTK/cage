@@ -1,7 +1,7 @@
 name: cage
-description: A new Flutter package project.
+description: A flutter framework providing structure and guidance
 version: 0.0.1
-author:
+author: Rouven T. Kruse <mail@rouvenkruse.de>
 homepage:
 
   environment:
