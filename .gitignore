@@ -4,6 +4,9 @@
 .idea/
 *.iml
 
+# Coverage
+coverage/
+
 # Files and directories created by pub
 .DS_STORE
 .dart_tool/
