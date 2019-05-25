@@ -1,5 +1,6 @@
-import 'package:cage/core/module.dart' show CagedModule, Key;
+import 'package:cage/core/core.dart' show CagedModule;
 import 'package:cage/flutter.dart';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/widgets.dart' show Container, Widget, runApp;
 import 'package:flutter_test/flutter_test.dart';
 
@@ -7,7 +8,7 @@ void main() {
   testWidgets(
       'bootstrapping a module without a root widget should throw an error',
       (WidgetTester widgetTester) {
-    CagedModule module = CagedModule(Key('Test'));
+    CagedModule module = CagedModuleStub('Test');
 
     expect(() {
       CagedFlutter.bootstrapModule(module);
@@ -23,7 +24,7 @@ void main() {
       isInitialized = true;
     };
 
-    CagedModule module = CagedModule(Key('Test'), bootstrap: Container());
+    CagedModule module = CagedModuleStub('Test', bootstrap: Container());
 
     CagedFlutter.bootstrapModule(module);
 
@@ -41,4 +42,9 @@ void main() {
 
     await widgetTester.pump();
   });
+}
+
+class CagedModuleStub extends CagedModule {
+  CagedModuleStub(String id, {Widget bootstrap})
+      : super(id, bootstrap: bootstrap);
 }

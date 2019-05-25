@@ -1,8 +1,8 @@
-library flutter;
+library cage.flutter;
 
 import 'package:flutter/widgets.dart';
 
-import './core/module.dart';
+import './cage.dart';
 
 typedef void InitializerCallback(Widget widget);
 
@@ -17,6 +17,8 @@ class CagedFlutter {
 
       throw 'Root module must have a bootstrap widget';
     }
+
+    ModuleRegistry().registerModule(module, true);
 
     CagedFlutter.initializer(module.bootstrap);
   }
