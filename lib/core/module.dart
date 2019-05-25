@@ -1,15 +1,49 @@
-import 'package:flutter/widgets.dart';
+part of cage.core;
 
-export 'package:flutter/widgets.dart' show Key;
+class _ModuleEntry {
+  final List<CagedModule> children;
 
-class CagedModule {
-  final Key id;
+  final CagedModule module;
 
-  // TODO replace with CagedWidget
+  const _ModuleEntry(this.module, [this.children = const []]);
+}
+
+@protected
+class ModuleRegistry {
+  static final _instance = ModuleRegistry._internal();
+
+  List<CagedModule> _modules = [];
+
+  _ModuleEntry _moduleTree;
+
+  factory ModuleRegistry() {
+    return _instance;
+  }
+
+  ModuleRegistry._internal();
+
+  registerModule(CagedModule module, bool isRootModule) {
+    if (isRootModule && _moduleTree != null) {
+      throw 'There is already a root module defined';
+    }
+
+    _moduleTree = _ModuleEntry(module);
+
+    _modules.add(module);
+  }
+}
+
+abstract class CagedModule {
+  final String id;
+
   final Widget bootstrap;
+
+  final List<Widget> declarations;
 
   final List<CagedModule> imports;
 
   // TODO add providers
-  CagedModule(this.id, {this.imports, this.bootstrap});
+
+  const CagedModule(this.id,
+      {this.declarations: const [], this.imports: const [], this.bootstrap});
 }

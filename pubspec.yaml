@@ -3,9 +3,8 @@ description: A flutter framework providing structure and guidance
 version: 0.0.1
 author: Rouven T. Kruse <mail@rouvenkruse.de>
 homepage:
-
   environment:
-    sdk: ">=2.0.0-dev.68.0 <3.0.0"
+    sdk: ">=2.2.0 <3.0.0"
 
   dependencies:
     flutter:
