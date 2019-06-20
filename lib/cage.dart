@@ -1,3 +1,3 @@
 library cage;
 
-export './core/core.dart';
+export './src/core/core.dart';

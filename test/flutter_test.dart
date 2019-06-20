@@ -1,6 +1,5 @@
-import 'package:cage/core/core.dart' show CagedModule;
+import 'package:cage/cage.dart' show CagedModule;
 import 'package:cage/flutter.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/widgets.dart' show Container, Widget, runApp;
 import 'package:flutter_test/flutter_test.dart';
 

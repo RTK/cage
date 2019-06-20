@@ -1,4 +1,4 @@
-import 'package:cage/core/di/di.dart';
+import 'package:cage/src/core/di/di.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 int injectableCounter = 0;

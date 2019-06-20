@@ -1,4 +1,4 @@
-import 'package:cage/core/core.dart' show CagedModule;
+import 'package:cage/cage.dart' show CagedModule;
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
