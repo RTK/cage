@@ -6,9 +6,21 @@ import 'package:cage/cage.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  Module module;
+
+  setUp(() {
+    module = Module(const ModuleKey('Test'));
+  });
+
   group('Module', () {
     test('It should create', () {
-      expect(Module(const ModuleKey('Test')), isNotNull);
+      expect(module, isNotNull);
+    });
+
+    group('get module()', () {
+      test('It should return itself', () {
+        expect(module.module, module);
+      });
     });
   });
 }
