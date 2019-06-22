@@ -49,6 +49,15 @@ void main() {
       });
     });
 
+    group('getDependency', () {
+      test(
+          'It should throw an Exception, when it cannot resolve the desired dependency',
+          () {
+        expect(() => injector.getDependency(const InjectionToken('test')),
+            throwsException);
+      });
+    });
+
     group('inheritance', () {
       test(
           'It should retrieve dependencies from its parent when it cannot satisfy the request',
