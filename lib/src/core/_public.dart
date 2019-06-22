@@ -4,4 +4,5 @@
 
 library cage.core;
 
+export 'di/_public.dart';
 export 'modules/_public.dart';

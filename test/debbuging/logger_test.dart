@@ -2,7 +2,7 @@
 //  Use of this source code is governed by an MIT-style license that can be
 //  found in the LICENSE file.
 
-import 'package:cage/src/debugging/_internal.dart';
+import 'package:cage/src/debugging/_private.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
