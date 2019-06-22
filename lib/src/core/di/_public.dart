@@ -2,7 +2,7 @@
 // Use of this source code is governed by an MIT-style license that can be
 // found in the LICENSE file.
 
-library cage.core.modules;
+library cage.core.di;
 
-export 'module.dart';
-export 'module_key.dart';
+export 'injection_token.dart';
+export 'public_injector.dart';
