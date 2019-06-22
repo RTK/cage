@@ -16,7 +16,7 @@ class Module extends ModuleType {
 
   final List<Object> services;
 
-  final List<Object> widgets;
+  final List<Widget> widgets;
 
   @override
   Module get module => this;
