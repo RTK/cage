@@ -6,5 +6,5 @@ library cage.private.core.di;
 
 export 'injectable.dart';
 export 'injection_token.dart';
-export 'injector.dart';
+export 'private_injector.dart';
 export 'public_injector.dart' show createPublicInjector;
