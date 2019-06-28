@@ -8,6 +8,8 @@ import 'package:meta/meta.dart';
 import 'module_key.dart';
 import 'module_type.dart';
 
+import '../widgets/_private.dart';
+
 /// Class to be used to define services and widgets.
 ///
 /// A [Module] can import other modules and gain access to its services and
@@ -23,7 +25,7 @@ import 'module_type.dart';
 class Module extends ModuleType {
   final List<ModuleType> imports;
 
-  final Widget rootWidget;
+  final WidgetContainerFactory rootWidget;
 
   final List<Object> services;
 

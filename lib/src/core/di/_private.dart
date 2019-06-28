@@ -8,3 +8,4 @@ export 'injectable.dart';
 export 'injection_token.dart';
 export 'private_injector.dart';
 export 'public_injector.dart' show createPublicInjector;
+export 'service_provider.dart';
