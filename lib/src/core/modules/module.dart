@@ -29,7 +29,7 @@ class Module extends ModuleType {
 
   final List<Object> services;
 
-  final List<Widget> widgets;
+  final List<Object> widgets;
 
   @override
   Module get module => this;
