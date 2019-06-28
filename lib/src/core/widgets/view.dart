@@ -190,3 +190,14 @@ void updateViewFromPresenter<P>(
 
   view._updateCallback(updateCb);
 }
+
+abstract class MyPresenterInterface {
+  String id;
+}
+
+class MyView extends View<MyPresenterInterface> {
+  @override
+  Widget createView() {
+    return Text(presenter.id);
+  }
+}

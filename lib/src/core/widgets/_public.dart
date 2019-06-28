@@ -11,3 +11,4 @@ export 'widget_container_factory.dart'
         PresenterCreationCallback,
         ViewCreationCallback,
         WidgetContainerFactory;
+export 'widget_provider.dart';

@@ -9,3 +9,4 @@ export 'stateful_widget_container.dart';
 export 'view.dart';
 export 'widget_container.dart';
 export 'widget_container_factory.dart';
+export 'widget_provider.dart';
