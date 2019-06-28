@@ -31,7 +31,7 @@ abstract class Presenter<O> {
     throw Exception('Do not manually set options.');
   }
 
-  bool _disposed = false;
+  bool _isDisposed = false;
 
   O _options;
 
@@ -48,7 +48,7 @@ abstract class Presenter<O> {
   /// If a view has already been attached, an [Exception] is thrown.
   @mustCallSuper
   void attachView(final View view) {
-    assert(_disposed != true);
+    assert(_isDisposed != true);
     assert(!_views.contains(view));
 
     _views.add(view);
@@ -59,7 +59,7 @@ abstract class Presenter<O> {
   /// If no [View] has been attached yet, an [Exception] is thrown.
   @mustCallSuper
   void detachView(final View view) {
-    assert(_disposed != true);
+    assert(_isDisposed != true);
     assert(_views.contains(view));
 
     _views.remove(view);
@@ -72,13 +72,13 @@ abstract class Presenter<O> {
   /// Throws an [Exception] if the [Presenter] already has been disposed.
   @mustCallSuper
   void dispose() {
-    assert(_disposed != true);
+    assert(_isDisposed != true);
 
     _logger.info('Disposing');
 
     _views.clear();
 
-    _disposed = true;
+    _isDisposed = true;
   }
 
   /// Updates the [View]. Each update has to be applied via [callback].
@@ -86,7 +86,7 @@ abstract class Presenter<O> {
   /// If no [View] has been attached, an [Exception] is thrown.
   @mustCallSuper
   void updateView(final VoidCallback callback) {
-    assert(_disposed != true);
+    assert(_isDisposed != true);
     assert(_views.isNotEmpty);
 
     for (final View view in _views) {
@@ -96,7 +96,7 @@ abstract class Presenter<O> {
 }
 
 void setPresenterOptions<O>(final Presenter<O> presenter, final O options) {
-  assert(presenter._disposed != true);
+  assert(presenter._isDisposed != true);
 
   presenter._options = options;
 }
