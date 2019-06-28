@@ -76,6 +76,7 @@ abstract class Presenter<O> {
 
     _logger.info('Disposing');
 
+    _options = null;
     _views.clear();
 
     _isDisposed = true;

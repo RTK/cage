@@ -98,6 +98,8 @@ abstract class View<P> {
     _logger.info('Disposing');
 
     _presenter = null;
+    _updateCallback = null;
+    _widgetCreatorCallback = null;
 
     _isDisposed = true;
   }
