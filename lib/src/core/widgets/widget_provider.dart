@@ -28,8 +28,7 @@ class WidgetProvider {
 
   WidgetProvider(this.factory,
       {final List<Object> dependencies: const [],
-      this.location = WidgetProviderLocation.Local,
-      final Object provideAs})
+      this.location = WidgetProviderLocation.Local})
       : assert(factory != null),
         this.dependencies = dependencies != null && dependencies.isNotEmpty
             ? dependencies.map(generateRuntimeInjectionToken).toList()

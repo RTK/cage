@@ -58,7 +58,7 @@ class WidgetResolver {
   void bootstrap() {
     _logger.info('Bootstrapping');
 
-    if (_cagedModule.widgets != null && _cagedModule.widgets.length > 0) {
+    if (_cagedModule.widgets != null && _cagedModule.widgets.isNotEmpty) {
       _logger.info('Acknowledging the widget providers');
 
       for (final WidgetProvider widgetContainerFactoryProvider
@@ -137,7 +137,7 @@ class WidgetResolver {
             !injector.hasDependency(injectionToken))
         .toList(growable: false);
 
-    if (dependencies.length > 0) {
+    if (dependencies.isNotEmpty) {
       serviceResolver.requireServices(dependencies);
     }
 

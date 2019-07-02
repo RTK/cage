@@ -33,7 +33,7 @@ class ServiceResolver {
   void bootstrap() {
     _logger.info('Bootstrap');
 
-    if (_cagedModule.services != null && _cagedModule.services.length > 0) {
+    if (_cagedModule.services != null && _cagedModule.services.isNotEmpty) {
       _logger.info('Acknowledging the service providers');
 
       final List<ServiceProvider> services = _cagedModule.services;
@@ -61,7 +61,7 @@ class ServiceResolver {
   /// Instantiate a [List] of given dependencies by providing the
   /// [InjectionToken].
   void requireServices(final List<InjectionToken> serviceList) {
-    if (serviceList != null && serviceList.length > 0) {
+    if (serviceList != null && serviceList.isNotEmpty) {
       for (final InjectionToken serviceToken in serviceList) {
         final _ServiceProviderResolver resolver =
             _getServiceProviderResolver(serviceToken);
@@ -121,7 +121,7 @@ class ServiceResolver {
 
     _logger.info('Resolving service ${serviceProvider.injectionToken}');
 
-    if (dependencies != null && dependencies.length > 0) {
+    if (dependencies != null && dependencies.isNotEmpty) {
       final List<InjectionToken> missingProviders = [];
 
       for (final InjectionToken dependencyToken in dependencies) {
@@ -149,7 +149,7 @@ class ServiceResolver {
         }
       }
 
-      if (missingProviders.length > 0) {
+      if (missingProviders.isNotEmpty) {
         final String errorMessage =
             'Cannot instantiate service ${serviceProvider.injectionToken}. Missing dependencies: $missingProviders';
 

@@ -68,7 +68,7 @@ class CagedModule {
     bootstrapServices();
     bootstrapWidgets();
 
-    if (imports != null && imports.length > 0) {
+    if (imports != null && imports.isNotEmpty) {
       for (final ModuleType subModuleType in imports) {
         logger.info('Bootstrap child module with root $root');
 
@@ -134,8 +134,7 @@ class CagedModule {
         } else if (provider is Map<String, dynamic>) {
           widgets.add(WidgetProvider(provider['widget'],
               location: provider['location'],
-              dependencies: provider['dependencies'],
-              provideAs: provider['provideAs']));
+              dependencies: provider['dependencies']));
         } else if (provider is WidgetContainerFactory) {
           widgets.add(WidgetProvider(provider));
         } else {
