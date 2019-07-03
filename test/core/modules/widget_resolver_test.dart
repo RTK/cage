@@ -74,6 +74,18 @@ void main() {
         expect(resolver.bootstrapWidgetByToken(wcf.widgetKey), isNotNull);
       });
 
+      test('It should use the cache to retrieve the same widget again', () {
+        final CagedModule cagedModule = CagedModule.fromModuleType(
+            Module(const ModuleKey('Test'), widgets: [wcf]), injector);
+
+        cagedModule.bootstrap();
+
+        final WidgetResolver resolver = injector.getDependency(WidgetResolver);
+
+        expect(resolver.bootstrapWidgetByToken(wcf.widgetKey), isNotNull);
+        expect(resolver.bootstrapWidgetByToken(wcf.widgetKey), isNotNull);
+      });
+
       test(
           'It should throw an AssertionError, when a non declared widget is bootstrapped',
           () {

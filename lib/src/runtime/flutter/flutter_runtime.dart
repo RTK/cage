@@ -10,6 +10,9 @@ typedef void InitializerCallback(Widget widget);
 
 /// Cage runtime integration for "flutter" runtime.
 class FlutterRuntime {
+  /// Private constructor.
+  ///
+  /// [FlutterRuntime] cannot be instantiated.
   FlutterRuntime._internal();
 
   /// Bootstraps a Module.
