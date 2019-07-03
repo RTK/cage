@@ -4,9 +4,9 @@
 
 library cage.debug;
 
-import 'src/debugging/_public.dart';
+import 'src/_private.dart';
 
-export 'src/debugging/_public.dart' show createLogger, Logger, Level;
+export 'src/debugging/_public.dart';
 
 void enableDebugMode({final Level logLevel: Level.OFF}) {
   enableLogging(logLevel);
