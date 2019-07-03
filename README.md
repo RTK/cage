@@ -1,5 +1,5 @@
 > Put your flutter app in a cage 
-# Cage &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/RTK/cage/blob/master/LICENSE) [![Build Status](https://travis-ci.com/RTK/cage.svg?branch=develop)](https://travis-ci.org/RTK/cage) [![codecov](https://codecov.io/gh/RTK/cage/branch/develop/graph/badge.svg)](https://codecov.io/gh/RTK/cage)
+# Cage &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/RTK/cage/blob/master/LICENSE) [![Build Status](https://travis-ci.com/RTK/cage.svg?branch=develop)](https://travis-ci.com/RTK/cage) [![codecov](https://codecov.io/gh/RTK/cage/branch/develop/graph/badge.svg)](https://codecov.io/gh/RTK/cage)
 
 
  A new Flutter package project.
