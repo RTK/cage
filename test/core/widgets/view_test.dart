@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:cage/cage.dart' as Public;
-import 'package:cage/src/_private.dart';
+import 'package:cage/src/_private.dart' hide State;
 import 'package:flutter/src/foundation/diagnostics.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -281,102 +281,65 @@ class MyWidgetContainerFactory extends WidgetContainerFactory {
 class MyBuildContext extends BuildContext {
   @override
   InheritedElement ancestorInheritedElementForWidgetOfExactType(
-      Type targetType) {
-    // TODO: implement ancestorInheritedElementForWidgetOfExactType
-    return null;
-  }
+          Type targetType) =>
+      null;
 
   @override
-  RenderObject ancestorRenderObjectOfType(TypeMatcher matcher) {
-    // TODO: implement ancestorRenderObjectOfType
-    return null;
-  }
+  RenderObject ancestorRenderObjectOfType(TypeMatcher matcher) => null;
 
   @override
-  State<StatefulWidget> ancestorStateOfType(TypeMatcher matcher) {
-    // TODO: implement ancestorStateOfType
-    return null;
-  }
+  State<StatefulWidget> ancestorStateOfType(TypeMatcher matcher) => null;
 
   @override
-  Widget ancestorWidgetOfExactType(Type targetType) {
-    // TODO: implement ancestorWidgetOfExactType
-    return null;
-  }
+  Widget ancestorWidgetOfExactType(Type targetType) => null;
 
   @override
-  RenderObject findRenderObject() {
-    // TODO: implement findRenderObject
-    return null;
-  }
+  RenderObject findRenderObject() => null;
 
   @override
   InheritedWidget inheritFromElement(InheritedElement ancestor,
-      {Object aspect}) {
-    // TODO: implement inheritFromElement
-    return null;
-  }
+          {Object aspect}) =>
+      null;
 
   @override
   InheritedWidget inheritFromWidgetOfExactType(Type targetType,
-      {Object aspect}) {
-    // TODO: implement inheritFromWidgetOfExactType
-    return null;
-  }
+          {Object aspect}) =>
+      null;
 
   @override
-  // TODO: implement owner
   BuildOwner get owner => null;
 
   @override
-  State<StatefulWidget> rootAncestorStateOfType(TypeMatcher matcher) {
-    // TODO: implement rootAncestorStateOfType
-    return null;
-  }
+  State<StatefulWidget> rootAncestorStateOfType(TypeMatcher matcher) => null;
 
   @override
-  // TODO: implement size
   Size get size => null;
 
   @override
-  void visitAncestorElements(bool Function(Element element) visitor) {
-    // TODO: implement visitAncestorElements
-  }
+  void visitAncestorElements(bool Function(Element element) visitor) {}
 
   @override
-  void visitChildElements(visitor) {
-    // TODO: implement visitChildElements
-  }
+  void visitChildElements(visitor) {}
 
   @override
-  // TODO: implement widget
   Widget get widget => null;
 
   @override
   DiagnosticsNode describeElement(String name,
-      {DiagnosticsTreeStyle style = DiagnosticsTreeStyle.errorProperty}) {
-    // TODO: implement describeElement
-    return null;
-  }
+          {DiagnosticsTreeStyle style = DiagnosticsTreeStyle.errorProperty}) =>
+      null;
 
   @override
-  List<DiagnosticsNode> describeMissingAncestor({Type expectedAncestorType}) {
-    // TODO: implement describeMissingAncestor
-    return null;
-  }
+  List<DiagnosticsNode> describeMissingAncestor({Type expectedAncestorType}) =>
+      null;
 
   @override
-  DiagnosticsNode describeOwnershipChain(String name) {
-    // TODO: implement describeOwnershipChain
-    return null;
-  }
+  DiagnosticsNode describeOwnershipChain(String name) => null;
 
   @override
   DiagnosticsNode describeWidget(String name,
-      {DiagnosticsTreeStyle style = DiagnosticsTreeStyle.errorProperty}) {
-    // TODO: implement describeWidget
-    return null;
-  }
+          {DiagnosticsTreeStyle style = DiagnosticsTreeStyle.errorProperty}) =>
+      null;
 }
 
 class FunctionsStub {
