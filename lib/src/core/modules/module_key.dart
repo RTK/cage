@@ -14,4 +14,9 @@ class ModuleKey {
   /// Constructor must be called as const.
   @literal
   const ModuleKey(this.key) : assert(key != null && key.length > 0);
+
+  @override
+  String toString() {
+    return '<<$key>>';
+  }
 }

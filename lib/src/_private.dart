@@ -5,3 +5,5 @@
 library cage.private;
 
 export 'core/_private.dart';
+export 'debugging/_private.dart';
+export 'runtime/_private.dart';

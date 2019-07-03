@@ -2,4 +2,4 @@
 // Use of this source code is governed by an MIT-style license that can be
 // found in the LICENSE file.
 
-export 'logger.dart' show createLogger, enableLogging, Level, Logger;
+export 'logger.dart' show createLogger, Level, Logger;

@@ -20,5 +20,11 @@ void main() {
         () {
       expect(() => ModuleKey(''), throwsAssertionError);
     });
+
+    group('toString', () {
+      test('It should return the correct value', () {
+        expect(const ModuleKey('test').toString(), '<<test>>');
+      });
+    });
   });
 }

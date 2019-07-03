@@ -8,13 +8,13 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  Injector injector;
+  group('Cage', () {
+    Injector injector;
 
-  setUp(() {
-    injector = emptyInjector.createChild(linkToParent: false);
-  });
+    setUp(() {
+      injector = emptyInjector.createChild(linkToParent: false);
+    });
 
-  group('class Cage', () {
     group('bootstrapWidgetFactory()', () {
       test('It should bootstrap the rootWidget correctly', () {
         final Key rootWidgetKey = Key('root');
@@ -68,6 +68,19 @@ void main() {
         final Cage cage = Cage.fromCagedModule(cagedModule);
 
         expect(() => cage.bootstrapWidgetFactory(), throwsAssertionError);
+      });
+    });
+
+    group('toString()', () {
+      test('should return the correct value', () {
+        final CagedModule cagedModule = CagedModule.fromModuleType(
+            Module(const ModuleKey('test')), injector);
+
+        cagedModule.bootstrapWidgets();
+
+        final Cage cage = Cage.fromCagedModule(cagedModule);
+
+        expect(cage.toString(), 'Cage of <<test>>');
       });
     });
   });
