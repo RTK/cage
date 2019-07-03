@@ -32,7 +32,7 @@ class TestCage {
   ///
   /// If the dependency cannot be found and not [notFoundValue] is provided,
   /// an [Exception] is thrown.
-  T get<T>(final Object token,
+  T getService<T>(final Object token,
       [final dynamic notFoundValue = _defaultNotFoundValue]) {
     try {
       return _cage.injector.getDependency(token);

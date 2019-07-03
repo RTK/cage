@@ -66,7 +66,7 @@ void main() {
 
         final TestCage testCage = TestCage(cage);
 
-        expect(testCage.get(TestService), isNotNull);
+        expect(testCage.getService(TestService), isNotNull);
       });
 
       test('It should return the notFound value for the dependency', () {
@@ -81,7 +81,7 @@ void main() {
 
         final TestCage testCage = TestCage(cage);
 
-        expect(testCage.get('Test123', 'test123'), 'test123');
+        expect(testCage.getService('Test123', 'test123'), 'test123');
       });
 
       test(
@@ -98,7 +98,7 @@ void main() {
 
         final TestCage testCage = TestCage(cage);
 
-        expect(() => testCage.get('Test123'), throwsException);
+        expect(() => testCage.getService('Test123'), throwsException);
       });
     });
 
