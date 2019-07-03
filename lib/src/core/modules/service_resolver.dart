@@ -176,11 +176,7 @@ class ServiceResolver {
 
     switch (serviceProvider.location) {
       case ServiceProviderLocation.Parent:
-        if (_cagedModule.parent == null) {
-          targetInjector = _cagedModule.injector;
-        } else {
-          targetInjector = _cagedModule.parent.injector;
-        }
+        targetInjector = _cagedModule.parent.injector;
         break;
 
       case ServiceProviderLocation.Root:

@@ -99,9 +99,21 @@ void main() {
       test('It should return true, if the dependency is registered', () {
         const InjectionToken injectionToken = InjectionToken('test');
 
-        injector.registerDependency(Injectable(injectionToken, 'test'));
+        injector.registerDependency(const Injectable(injectionToken, 'test'));
 
         expect(injector.hasDependency(injectionToken), true);
+      });
+
+      test('It should use the hirarchical di to check for dependencies', () {
+        const InjectionToken injectionToken = InjectionToken('test');
+
+        injector.registerDependency(const Injectable(injectionToken, 'test'));
+
+        final Injector child1 = injector.createChild();
+        final Injector child2 = child1.createChild();
+        final Injector child3 = child2.createChild();
+
+        expect(child3.hasDependency(injectionToken), true);
       });
     });
 

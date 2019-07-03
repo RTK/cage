@@ -132,13 +132,26 @@ class CagedModule {
         } else if (provider is Map<String, dynamic>) {
           logger.fine('Trying to add service provider from map');
 
+          assert(!provider.containsKey(_ServiceProviderOptionLocation) ||
+              provider[_ServiceProviderOptionLocation]
+                  is ServiceProviderLocation);
+
           if (provider.containsKey(_ServiceProviderOptionFactory)) {
             logger.finer('Found factory provider syntax');
             logger.finest(provider);
 
-            assert(provider.containsKey(_ServiceProviderOptionProvideAs) &&
+            assert(!provider.containsKey(_ServiceProviderOptionProvideAs) ||
                 provider[_ServiceProviderOptionProvideAs] != null);
+
             assert(provider[_ServiceProviderOptionFactory] != null);
+
+            assert(!provider.containsKey(_ServiceProviderOptionDependencies) ||
+                provider[_ServiceProviderOptionDependencies] is List);
+
+            assert(!provider
+                    .containsKey(_ServiceProviderOptionInstantiationType) ||
+                provider[_ServiceProviderOptionInstantiationType]
+                    is ServiceProviderInstantiationType);
 
             serviceProvider = ServiceProvider.fromFactory(
               provider[_ServiceProviderOptionProvideAs],
@@ -211,8 +224,15 @@ class CagedModule {
         } else if (provider is Map<String, dynamic>) {
           logger.fine('Trying to add widget provider from map');
 
-          assert(provider.containsKey(_WidgetProviderOptionWidget) &&
+          assert(!provider.containsKey(_WidgetProviderOptionWidget) ||
               provider[_WidgetProviderOptionWidget] is WidgetContainerFactory);
+
+          assert(!provider.containsKey(_WidgetProviderOptionLocation) ||
+              provider[_WidgetProviderOptionLocation]
+                  is WidgetProviderLocation);
+
+          assert(!provider.containsKey(_WidgetProviderOptionDependencies) ||
+              provider[_WidgetProviderOptionDependencies] is List);
 
           widgetProvider = WidgetProvider(provider[_WidgetProviderOptionWidget],
               location: provider.containsKey(_WidgetProviderOptionLocation)
@@ -244,10 +264,6 @@ class CagedModule {
 
             root.widgets.add(widgetProvider);
             break;
-
-          default:
-            throw StateError(
-                'WidgetProvider contains unsupported location: ${widgetProvider.location}');
         }
       }
 
