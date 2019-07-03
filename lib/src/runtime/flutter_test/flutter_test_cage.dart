@@ -18,7 +18,7 @@ class TestCage {
     try {
       return _injector.getDependency(token);
     } catch (e) {
-      if (notFoundValue != null) {
+      if (notFoundValue != defaultNotFoundValue) {
         return notFoundValue;
       }
 
@@ -28,6 +28,6 @@ class TestCage {
 
   @override
   String toString() {
-    return 'Test cage for $_cage';
+    return 'Test cage of <$_cage>';
   }
 }

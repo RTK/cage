@@ -24,4 +24,9 @@ class Cage {
 
     return widgetContainer;
   }
+
+  @override
+  String toString() {
+    return 'Cage of ${_cagedModule.id}';
+  }
 }
