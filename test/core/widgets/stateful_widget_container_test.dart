@@ -113,6 +113,28 @@ void main() {
         expect(wasCalled, true);
         expect(updateCb is Function, true);
       });
+
+      test(
+          'It should call the updateView function, when the update function is called',
+          () {
+        bool wasCalled = false;
+
+        final UpdateCallback onUpdate =
+            (final UpdateWidgetCallback updateWidgetCallback) {
+          updateWidgetCallback(() {});
+        };
+
+        state.widgetRef =
+            StatefulWidgetContainer(Key('test'), myView, onUpdate: onUpdate);
+
+        state.updateView = (final VoidCallback cb) {
+          wasCalled = true;
+        };
+
+        state.onInit();
+
+        expect(wasCalled, true);
+      });
     });
 
     group('onDispose()', () {

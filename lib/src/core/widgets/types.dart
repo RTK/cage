@@ -5,3 +5,7 @@
 typedef VoidCallback = void Function();
 
 typedef UpdateWidgetCallback = void Function(VoidCallback updateCallback);
+
+typedef UpdateCallback = void Function(UpdateWidgetCallback);
+
+typedef UpdateViewCallback = void Function(VoidCallback);

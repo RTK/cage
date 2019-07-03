@@ -81,7 +81,12 @@ void main() {
             'location': Public.ServiceProviderLocation.Root,
             'instantiationType': ServiceProviderInstantiationType.OnInject
           },
-          {'factory': (final Public.Injector injector) => 'v', 'provideAs': 'v'}
+          {
+            'factory': (final Public.Injector injector) => 'v',
+            'provideAs': 'v',
+            'dependencies': [],
+            'instantiationType': ServiceProviderInstantiationType.OnInject
+          }
         ]);
 
         final CagedModule cagedModule =
@@ -113,7 +118,9 @@ void main() {
       });
 
       test('It should throw, when an invalid map provider is declared', () {
-        final Module myModule = Module(const ModuleKey('my'), services: [{}]);
+        final Module myModule = Module(const ModuleKey('my'), services: [
+          {'test': true}
+        ]);
 
         final CagedModule cagedModule =
             CagedModule.fromModuleType(myModule, injector);

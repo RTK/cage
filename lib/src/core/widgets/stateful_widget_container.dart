@@ -3,15 +3,10 @@
 // found in the LICENSE file.
 
 import 'package:flutter/widgets.dart';
-import 'package:flutter/widgets.dart' as prefix0;
 import 'package:meta/meta.dart';
 
 import 'types.dart';
 import 'view.dart';
-
-typedef _UpdateViewCallback = void Function(VoidCallback);
-
-typedef UpdateCallback = void Function(UpdateWidgetCallback);
 
 /// Wraps a [StatefulWidget].
 ///
@@ -43,7 +38,7 @@ class StatefulWidgetContainer extends StatefulWidget {
 
 class StatefulWidgetContainerState extends State<StatefulWidgetContainer> {
   @visibleForTesting
-  _UpdateViewCallback updateView;
+  UpdateViewCallback updateView;
 
   @visibleForTesting
   View view;
