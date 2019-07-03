@@ -25,7 +25,7 @@ class FlutterRuntime {
       throw Exception('Root module must have a bootstrap widget');
     }
 
-    final Injector rootInjector = emptyInjector;
+    final Injector rootInjector = emptyInjector.createChild();
 
     _logger.info('Bootstraping module with rootInjector (emptyInjector)');
 
