@@ -85,6 +85,7 @@ void main() {
             'factory': (final Public.Injector injector) => 'v',
             'provideAs': 'v',
             'dependencies': [],
+            'location': Public.ServiceProviderLocation.Root,
             'instantiationType': ServiceProviderInstantiationType.OnInject
           }
         ]);
