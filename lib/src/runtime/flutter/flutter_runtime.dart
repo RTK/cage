@@ -10,6 +10,8 @@ typedef void InitializerCallback(Widget widget);
 
 /// Cage runtime integration for "flutter" runtime.
 class FlutterRuntime {
+  FlutterRuntime._internal();
+
   /// Bootstraps a Module.
   ///
   /// The module must provide a rootWidget, which will instantiated by calling
