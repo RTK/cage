@@ -5,12 +5,16 @@
 import 'caged_module.dart';
 import 'widget_resolver.dart';
 
+import '../di/public_injector.dart';
 import '../widgets/widget_container.dart';
 
 class Cage {
+  final Injector injector;
+
   final CagedModule _cagedModule;
 
-  const Cage.fromCagedModule(this._cagedModule);
+  Cage.fromCagedModule(this._cagedModule)
+      : this.injector = createPublicInjector(_cagedModule.injector);
 
   /// Resolves the bootstrap [WidgetContainer].
   WidgetContainer bootstrapWidgetFactory() {

@@ -30,7 +30,7 @@ class FlutterRuntime {
     _logger.info('Bootstraping module with rootInjector (emptyInjector)');
 
     final CagedModule cagedModule =
-        CagedModule.fromModuleType(module, rootInjector, null, null);
+        CagedModule.fromModuleType(module, rootInjector);
 
     final Cage cage = Cage.fromCagedModule(cagedModule);
 

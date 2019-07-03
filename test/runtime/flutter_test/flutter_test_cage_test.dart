@@ -4,6 +4,7 @@
 
 import 'package:cage/cage.dart' as Public show Injector;
 import 'package:cage/src/_private.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -12,6 +13,40 @@ void main() {
 
     setUp(() {
       injector = emptyInjector.createChild(linkToParent: false);
+    });
+
+    group('bootstrapWidgetByKey()', () {
+      testWidgets('It should create defined widget',
+          (final WidgetTester widgetTester) async {
+        const Key widgetKey = Key('myWidget');
+
+        final WidgetContainerFactory wcf = WidgetContainerFactory(
+            createView: () => MyView(),
+            createPresenter: (final Public.Injector injector) => MyPresenter(),
+            widgetKey: widgetKey);
+
+        final Module module = Module(const ModuleKey('test'), widgets: [wcf]);
+
+        final CagedModule cagedModule =
+            CagedModule.fromModuleType(module, injector);
+
+        cagedModule.bootstrap();
+
+        final Cage cage = Cage.fromCagedModule(cagedModule);
+
+        final TestCage testCage = TestCage(cage);
+
+        await widgetTester.pumpWidget(testCage.bootstrapWidgetByKey(widgetKey));
+
+        await widgetTester.pump();
+
+        final Finder findContainer =
+            find.byWidgetPredicate((Widget widget) => widget is Container);
+
+        expect(findContainer, findsOneWidget);
+
+        await widgetTester.pump();
+      });
     });
 
     group('get()', () {
@@ -29,7 +64,7 @@ void main() {
 
         final Cage cage = Cage.fromCagedModule(cagedModule);
 
-        final TestCage testCage = TestCage(cage, injector);
+        final TestCage testCage = TestCage(cage);
 
         expect(testCage.get(TestService), isNotNull);
       });
@@ -44,7 +79,7 @@ void main() {
 
         final Cage cage = Cage.fromCagedModule(cagedModule);
 
-        final TestCage testCage = TestCage(cage, injector);
+        final TestCage testCage = TestCage(cage);
 
         expect(testCage.get('Test123', 'test123'), 'test123');
       });
@@ -61,7 +96,7 @@ void main() {
 
         final Cage cage = Cage.fromCagedModule(cagedModule);
 
-        final TestCage testCage = TestCage(cage, injector);
+        final TestCage testCage = TestCage(cage);
 
         expect(() => testCage.get('Test123'), throwsException);
       });
@@ -82,7 +117,7 @@ void main() {
 
         final Cage cage = Cage.fromCagedModule(cagedModule);
 
-        final TestCage testCage = TestCage(cage, injector);
+        final TestCage testCage = TestCage(cage);
 
         expect(testCage.toString(), 'Test cage of <Cage of <<test>>>');
       });
@@ -91,3 +126,10 @@ void main() {
 }
 
 class TestService {}
+
+class MyPresenter extends Presenter {}
+
+class MyView extends View {
+  @override
+  Widget createView() => Container();
+}

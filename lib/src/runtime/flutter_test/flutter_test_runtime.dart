@@ -4,17 +4,18 @@
 
 import 'package:cage/src/_private.dart';
 
-class TestRuntime {
+class FlutterTestRuntime {
+  /// Bootstraps a [ModuleType] to be used in test cases.
   static TestCage bootstrapModule(final ModuleType moduleType) {
     final Injector rootInjector = emptyInjector.createChild();
 
     final CagedModule cagedModule =
-        CagedModule.fromModuleType(moduleType, rootInjector, null, null);
+        CagedModule.fromModuleType(moduleType, rootInjector);
 
     cagedModule.bootstrap();
 
     final Cage cage = Cage.fromCagedModule(cagedModule);
 
-    return TestCage(cage, rootInjector);
+    return TestCage(cage);
   }
 }

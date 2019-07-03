@@ -8,14 +8,15 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   test('TestRuntime class shall exsit', () {
-    expect(TestRuntime, isNotNull);
+    expect(FlutterTestRuntime, isNotNull);
   });
 
   group('Module bootstrapping', () {
     test('A TestCage instance shall be created', () {
       final Module module = Module(const ModuleKey('test'));
 
-      expect(TestRuntime.bootstrapModule(module) is TestCage, true);
+      expect(
+          FlutterTestRuntime.bootstrapModule(module), isInstanceOf<TestCage>());
     });
   });
 }
