@@ -170,7 +170,6 @@ void main() {
         test(
             'It should throw, when a provider can be resolved, but not its dependencies',
             () {
-          enableLogging();
           final Module myModule = Module(const ModuleKey('my'), services: [
             ServiceProvider.fromFactory(
                 ServiceBTest,
