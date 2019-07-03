@@ -39,7 +39,7 @@ class ServiceResolver {
       final List<ServiceProvider> services = _cagedModule.services;
 
       for (final ServiceProvider serviceProvider in services) {
-        _logger.info('Acknowledged ${serviceProvider.injectionToken}');
+        _logger.info('Acknowledged <${serviceProvider.injectionToken}>');
 
         _servicesMap[serviceProvider.injectionToken] = serviceProvider;
       }
@@ -52,7 +52,9 @@ class ServiceResolver {
               serviceProvider.injectionToken)
           .toList(growable: false);
 
-      requireServices(bootServices);
+      if (bootServices.isNotEmpty) {
+        requireServices(bootServices);
+      }
     } else {
       _logger.info('No services defined.');
     }
@@ -61,6 +63,8 @@ class ServiceResolver {
   /// Instantiate a [List] of given dependencies by providing the
   /// [InjectionToken].
   void requireServices(final List<InjectionToken> serviceList) {
+    _logger.info('Requiring services $serviceList');
+
     if (serviceList != null && serviceList.isNotEmpty) {
       for (final InjectionToken serviceToken in serviceList) {
         final _ServiceProviderResolver resolver =
@@ -89,6 +93,8 @@ class ServiceResolver {
       final ServiceResolver moduleServiceResolver =
           module.injector.getDependency(ServiceResolver);
 
+      _logger.info(moduleServiceResolver._servicesMap);
+
       if (moduleServiceResolver._servicesMap.containsKey(injectionToken)) {
         return _ServiceProviderResolver(
             moduleServiceResolver._servicesMap[injectionToken],
@@ -96,7 +102,7 @@ class ServiceResolver {
       }
 
       module = module.parent;
-    } while (module != null);
+    } while (module != null && !identical(module, module.parent));
 
     return null;
   }
@@ -124,6 +130,8 @@ class ServiceResolver {
     if (dependencies != null && dependencies.isNotEmpty) {
       final List<InjectionToken> missingProviders = [];
 
+      _logger.severe('Service has dependencies: $dependencies');
+
       for (final InjectionToken dependencyToken in dependencies) {
         if (resolveChain.isNotEmpty && resolveChain.contains(dependencyToken)) {
           final InjectionToken serviceToken =
@@ -135,6 +143,8 @@ class ServiceResolver {
           throw Exception(
               'Circular dependency detected! Cannot instantiate "$serviceToken" since it depends on "$dependencyToken", which depends directly or indirectly on "$serviceToken".');
         }
+
+        _logger.severe('No circular dependencies detected');
 
         _ServiceProviderResolver dependencyProvider =
             _getServiceProviderResolver(dependencyToken);

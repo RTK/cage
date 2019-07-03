@@ -45,7 +45,9 @@ class ServiceProvider<T> {
       {final List<Object> dependencies = const [],
       final ServiceProviderInstantiationType instantiationType,
       final ServiceProviderLocation location})
-      : this.instantiationType = instantiationType != null
+      : assert(provideAs != null),
+        assert(factoryProvider != null),
+        this.instantiationType = instantiationType != null
             ? instantiationType
             : ServiceProviderInstantiationType.OnInject,
         this.location =
@@ -56,9 +58,7 @@ class ServiceProvider<T> {
         _factoryProvider = factoryProvider,
         this.dependencies = dependencies != null && dependencies.isNotEmpty
             ? dependencies.map(generateRuntimeInjectionToken).toList()
-            : const [],
-        assert(provideAs != null),
-        assert(factoryProvider != null);
+            : const [];
 
   /// Creates a service provider (injectable) from a value (instance).
   ///
@@ -67,19 +67,15 @@ class ServiceProvider<T> {
   /// the injectable
   const ServiceProvider.fromValue(this._instance,
       {final Object provideAs, final ServiceProviderLocation location})
-      : instantiationType = ServiceProviderInstantiationType.OnBoot,
+      : assert(_instance != null),
+        instantiationType = ServiceProviderInstantiationType.OnBoot,
         this.location =
             location != null ? location : ServiceProviderLocation.Root,
         type = ServiceProviderType.Value,
         _factoryProvider = null,
         _injectionToken = provideAs != null ? provideAs : _instance,
-        this.dependencies = const [],
-        assert(_instance != null);
+        this.dependencies = const [];
 }
-
-Object getServiceProviderOriginalToken<S>(
-        final ServiceProvider<S> serviceProvider) =>
-    serviceProvider._injectionToken;
 
 /// Creates the service's instance.
 ///

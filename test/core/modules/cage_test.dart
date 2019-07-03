@@ -30,7 +30,7 @@ void main() {
         final CagedModule cagedModule =
             CagedModule.fromModuleType(module, injector);
 
-        cagedModule.bootstrapWidgets();
+        cagedModule.bootstrap();
 
         final Cage cage = Cage.fromCagedModule(cagedModule);
 
@@ -45,7 +45,7 @@ void main() {
         final CagedModule cagedModule = CagedModule.fromModuleType(
             Module(const ModuleKey('test')), injector);
 
-        cagedModule.bootstrapWidgets();
+        cagedModule.bootstrap();
 
         final Cage cage = Cage.fromCagedModule(cagedModule);
 
@@ -63,7 +63,7 @@ void main() {
         final CagedModule cagedModule = CagedModule.fromModuleType(
             Module(const ModuleKey('test'), rootWidget: wcf), injector);
 
-        cagedModule.bootstrapWidgets();
+        cagedModule.bootstrap();
 
         final Cage cage = Cage.fromCagedModule(cagedModule);
 
@@ -76,7 +76,7 @@ void main() {
         final CagedModule cagedModule = CagedModule.fromModuleType(
             Module(const ModuleKey('test')), injector);
 
-        cagedModule.bootstrapWidgets();
+        cagedModule.bootstrap();
 
         final Cage cage = Cage.fromCagedModule(cagedModule);
 

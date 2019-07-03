@@ -10,7 +10,8 @@ void main() {
   MyView myView;
   StatefulWidgetContainer widget;
 
-  var updateCallback = (final UpdateWidgetCallback updateWidgetCallback) {};
+  final UpdateCallback updateCallback =
+      (final UpdateWidgetCallback updateWidgetCallback) {};
 
   setUp(() {
     myView = MyView();
@@ -24,7 +25,7 @@ void main() {
     widget = null;
   });
 
-  group('class StatefulWidgetContainer', () {
+  group('StatefulWidgetContainer', () {
     test('It should create', () {
       expect(widget, isNotNull);
     });
@@ -49,9 +50,91 @@ void main() {
     });
   });
 
-  group('class StatefulWidgetContainerState', () {
+  group('StatefulWidgetContainerState', () {
+    StatefulWidgetContainerState state;
+
+    setUp(() {
+      state = StatefulWidgetContainerState(myView);
+    });
+
     test('It should create', () {
-      expect(StatefulWidgetContainerState(myView), isNotNull);
+      expect(state, isNotNull);
+    });
+
+    group('initState()', () {
+      test('It should set the updateView method', () {
+        expect(state.updateView, isNull);
+        expect(state.widgetRef, isNull);
+
+        expect(() => state.initState(), throwsAssertionError);
+
+        expect(state.updateView, isInstanceOf<Function>());
+      });
+    });
+
+    group('onInit()', () {
+      test('It should call the onInit method of its widget, when defined', () {
+        bool wasCalled = false;
+
+        final VoidCallback onInit = () {
+          wasCalled = true;
+        };
+
+        final UpdateCallback onUpdate =
+            (final UpdateWidgetCallback updateWidgetCallback) {};
+
+        state.widgetRef = StatefulWidgetContainer(Key('test'), myView,
+            onUpdate: onUpdate, onInit: onInit);
+
+        state.onInit();
+
+        expect(wasCalled, true);
+      });
+
+      test(
+          'It should call the onUpdate method of its widget with an Function as argument',
+          () {
+        bool wasCalled = false;
+        UpdateWidgetCallback updateCb;
+
+        final VoidCallback onInit = () {};
+
+        final UpdateCallback onUpdate =
+            (final UpdateWidgetCallback updateWidgetCallback) {
+          wasCalled = true;
+          updateCb = updateWidgetCallback;
+        };
+
+        state.widgetRef = StatefulWidgetContainer(Key('test'), myView,
+            onUpdate: onUpdate, onInit: onInit);
+
+        state.onInit();
+
+        expect(wasCalled, true);
+        expect(updateCb is Function, true);
+      });
+    });
+
+    group('onDispose()', () {
+      test('It should call the onDispose method of its widget when defined',
+          () {
+        bool wasCalled = false;
+
+        final VoidCallback onDispose = () {
+          wasCalled = true;
+        };
+
+        final UpdateCallback onUpdate =
+            (final UpdateWidgetCallback updateWidgetCallback) {};
+
+        state.widgetRef = StatefulWidgetContainer(Key('test'), myView,
+            onUpdate: onUpdate, onDispose: onDispose);
+
+        state.onDispose();
+
+        expect(wasCalled, true);
+        expect(state.view, isNull);
+      });
     });
   });
 }

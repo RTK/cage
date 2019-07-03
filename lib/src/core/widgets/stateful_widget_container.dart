@@ -3,9 +3,15 @@
 // found in the LICENSE file.
 
 import 'package:flutter/widgets.dart';
+import 'package:flutter/widgets.dart' as prefix0;
 import 'package:meta/meta.dart';
 
+import 'types.dart';
 import 'view.dart';
+
+typedef _UpdateViewCallback = void Function(VoidCallback);
+
+typedef UpdateCallback = void Function(UpdateWidgetCallback);
 
 /// Wraps a [StatefulWidget].
 ///
@@ -20,7 +26,7 @@ class StatefulWidgetContainer extends StatefulWidget {
 
   final VoidCallback onDispose;
 
-  final Function onUpdate;
+  final UpdateCallback onUpdate;
 
   final View view;
 
@@ -37,7 +43,13 @@ class StatefulWidgetContainer extends StatefulWidget {
 
 class StatefulWidgetContainerState extends State<StatefulWidgetContainer> {
   @visibleForTesting
+  _UpdateViewCallback updateView;
+
+  @visibleForTesting
   View view;
+
+  @visibleForTesting
+  StatefulWidgetContainer widgetRef;
 
   StatefulWidgetContainerState(this.view);
 
@@ -45,24 +57,41 @@ class StatefulWidgetContainerState extends State<StatefulWidgetContainer> {
   void initState() {
     super.initState();
 
-    if (widget.onInit != null) {
-      widget.onInit();
-    }
+    updateView = setState;
+    widgetRef = widget;
 
-    widget.onUpdate((final VoidCallback callback) {
-      setState(callback);
-    });
+    onInit();
   }
 
   @override
   void dispose() {
-    if (!mounted && widget.onDispose != null) {
-      widget.onDispose();
+    onDispose();
+
+    super.dispose();
+  }
+
+  @visibleForTesting
+  void onDispose() {
+    assert(widgetRef != null);
+
+    if (!mounted && widgetRef.onDispose != null) {
+      widgetRef.onDispose();
 
       view = null;
     }
+  }
 
-    super.dispose();
+  @visibleForTesting
+  void onInit() {
+    assert(widgetRef != null);
+
+    if (widgetRef.onInit != null) {
+      widgetRef.onInit();
+    }
+
+    widgetRef.onUpdate((final VoidCallback callback) {
+      updateView(callback);
+    });
   }
 
   @override

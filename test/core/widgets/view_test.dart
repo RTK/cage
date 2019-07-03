@@ -26,9 +26,12 @@ void main() {
       test('It should set the view\'s presenter to given presenter', () {
         expect(myView.presenter, null);
 
+        expect(myView.hasPresenter, false);
+
         myView.attachPresenter(myPresenter);
 
         expect(myView.presenter, myPresenter);
+        expect(myView.hasPresenter, true);
       });
 
       test(
@@ -48,9 +51,12 @@ void main() {
     group('detachPresenter()', () {
       test('It should detach the presenter from the view', () {
         myView.attachPresenter(myPresenter);
+        expect(myView.hasPresenter, true);
+
         myView.detachPresenter();
 
         expect(myView.presenter, null);
+        expect(myView.hasPresenter, false);
       });
 
       test(

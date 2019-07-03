@@ -4,6 +4,7 @@
 
 import 'package:cage/debug.dart';
 import 'package:flutter/widgets.dart' show Key;
+import 'package:flutter/widgets.dart';
 import 'package:meta/meta.dart';
 
 import 'module.dart';
@@ -16,6 +17,25 @@ import '../di/_private.dart';
 import '../widgets/_private.dart';
 
 class CagedModule {
+  static const String _ServiceProviderOptionDependencies = 'dependencies';
+
+  static const String _ServiceProviderOptionFactory = 'factory';
+
+  static const String _ServiceProviderOptionInstantiationType =
+      'instantiationType';
+
+  static const String _ServiceProviderOptionLocation = 'location';
+
+  static const String _ServiceProviderOptionProvideAs = 'provideAs';
+
+  static const String _ServiceProviderOptionValue = 'value';
+
+  static const String _WidgetProviderOptionDependencies = 'dependencies';
+
+  static const String _WidgetProviderOptionLocation = 'location';
+
+  static const String _WidgetProviderOptionWidget = 'widget';
+
   @visibleForTesting
   final List<CagedModule> children = [];
 
@@ -25,7 +45,9 @@ class CagedModule {
 
   final Injector injector;
 
-  final CagedModule parent;
+  CagedModule get parent => _parent != null ? _parent : this;
+
+  CagedModule get root => _root != null ? _root : this;
 
   final Key rootWidget;
 
@@ -35,22 +57,16 @@ class CagedModule {
 
   final Module _module;
 
+  final CagedModule _parent;
+
   final CagedModule _root;
 
   bool _coreServicesRegistered = false;
 
-  get root {
-    if (_root != null) {
-      return _root;
-    }
-
-    return this;
-  }
-
   Logger logger;
 
   CagedModule.fromModuleType(final ModuleType moduleType, this.injector,
-      [this.parent, this._root])
+      [this._parent, this._root])
       : assert(moduleType != null),
         assert(moduleType.module != null),
         assert(moduleType.module is Module),
@@ -65,9 +81,26 @@ class CagedModule {
   }
 
   void bootstrap() {
-    bootstrapServices();
-    bootstrapWidgets();
+    if (!_coreServicesRegistered) {
+      _registerCoreServices();
+    }
 
+    _bootstrapImports();
+    _bootstrapServices();
+    _bootstrapWidgets();
+
+    final ServiceResolver serviceResolver =
+        injector.getDependency(ServiceResolver);
+
+    serviceResolver.bootstrap();
+
+    final WidgetResolver widgetResolver =
+        injector.getDependency(WidgetResolver);
+
+    widgetResolver.bootstrap();
+  }
+
+  void _bootstrapImports() {
     if (imports != null && imports.isNotEmpty) {
       for (final ModuleType subModuleType in imports) {
         logger.info('Bootstrap child module with root $root');
@@ -87,66 +120,139 @@ class CagedModule {
     }
   }
 
-  @visibleForTesting
-  void bootstrapServices() {
-    if (!_coreServicesRegistered) {
-      _registerCoreServices();
-    }
-
+  _bootstrapServices() {
     if (_module.services != null && _module.services.isNotEmpty) {
       for (final Object provider in _module.services) {
+        ServiceProvider serviceProvider;
+
         if (provider is ServiceProvider) {
-          services.add(provider);
+          logger.fine('Added service provider');
+
+          serviceProvider = provider;
         } else if (provider is Map<String, dynamic>) {
-          if (provider['factory'] != null) {
-            services.add(ServiceProvider.fromFactory(
-                provider['provideAs'], provider['factory'],
-                dependencies: provider['dependencies'],
-                location: provider['location'],
-                instantiationType: provider['instantiationType']));
-          } else if (provider['value'] != null) {
-            services.add(ServiceProvider.fromValue(provider['value'],
-                location: provider['location'],
-                provideAs: provider['provideAs']));
+          logger.fine('Trying to add service provider from map');
+
+          if (provider.containsKey(_ServiceProviderOptionFactory)) {
+            logger.finer('Found factory provider syntax');
+            logger.finest(provider);
+
+            assert(provider.containsKey(_ServiceProviderOptionProvideAs) &&
+                provider[_ServiceProviderOptionProvideAs] != null);
+            assert(provider[_ServiceProviderOptionFactory] != null);
+
+            serviceProvider = ServiceProvider.fromFactory(
+              provider[_ServiceProviderOptionProvideAs],
+              provider[_ServiceProviderOptionFactory],
+              dependencies:
+                  provider.containsKey(_ServiceProviderOptionDependencies)
+                      ? provider[_ServiceProviderOptionDependencies]
+                      : const [],
+              location: provider.containsKey(_ServiceProviderOptionLocation)
+                  ? provider[_ServiceProviderOptionLocation]
+                  : ServiceProviderLocation.Root,
+              instantiationType:
+                  provider.containsKey(_ServiceProviderOptionInstantiationType)
+                      ? provider[_ServiceProviderOptionInstantiationType]
+                      : ServiceProviderInstantiationType.OnInject,
+            );
+          } else if (provider.containsKey(_ServiceProviderOptionValue)) {
+            logger.finer('Found value provider syntax');
+            logger.finest(provider);
+
+            serviceProvider = ServiceProvider.fromValue(
+                provider[_ServiceProviderOptionValue],
+                location: provider.containsKey(_ServiceProviderOptionLocation)
+                    ? provider[_ServiceProviderOptionLocation]
+                    : ServiceProviderLocation.Root,
+                provideAs: provider.containsKey(_ServiceProviderOptionProvideAs)
+                    ? provider[_ServiceProviderOptionProvideAs]
+                    : null);
+          } else {
+            logger.severe('Object cannot be converted to a service provider');
+
+            throw Exception('Invalid ServiceProvider map syntax.');
           }
         } else {
           throw Exception('Invalid ServiceProvider.');
         }
-      }
-    }
 
-    final ServiceResolver serviceResolver =
-        injector.getDependency(ServiceResolver);
+        switch (serviceProvider.location) {
+          case ServiceProviderLocation.Local:
+            logger.fine('Add service provider locally');
 
-    serviceResolver.bootstrap();
-  }
+            services.add(serviceProvider);
+            break;
 
-  @visibleForTesting
-  void bootstrapWidgets() {
-    if (!_coreServicesRegistered) {
-      _registerCoreServices();
-    }
+          case ServiceProviderLocation.Parent:
+            logger.fine('Add service provider in parent module');
 
-    if (_module.widgets != null && _module.widgets.isNotEmpty) {
-      for (final Object provider in _module.widgets) {
-        if (provider is WidgetProvider) {
-          widgets.add(provider);
-        } else if (provider is Map<String, dynamic>) {
-          widgets.add(WidgetProvider(provider['widget'],
-              location: provider['location'],
-              dependencies: provider['dependencies']));
-        } else if (provider is WidgetContainerFactory) {
-          widgets.add(WidgetProvider(provider));
-        } else {
-          throw Exception('Invalid WidgetProvider.');
+            parent.services.add(serviceProvider);
+            break;
+
+          case ServiceProviderLocation.Root:
+            logger.fine('Add service provider in root module');
+
+            root.services.add(serviceProvider);
+            break;
         }
       }
     }
+  }
 
-    final WidgetResolver widgetResolver =
-        injector.getDependency(WidgetResolver);
+  _bootstrapWidgets() {
+    if (_module.widgets != null && _module.widgets.isNotEmpty) {
+      for (final Object provider in _module.widgets) {
+        WidgetProvider widgetProvider;
 
-    widgetResolver.bootstrap();
+        if (provider is WidgetProvider) {
+          logger.fine('Added widget provider');
+
+          widgetProvider = provider;
+        } else if (provider is Map<String, dynamic>) {
+          logger.fine('Trying to add widget provider from map');
+
+          assert(provider.containsKey(_WidgetProviderOptionWidget) &&
+              provider[_WidgetProviderOptionWidget] is WidgetContainerFactory);
+
+          widgetProvider = WidgetProvider(provider[_WidgetProviderOptionWidget],
+              location: provider.containsKey(_WidgetProviderOptionLocation)
+                  ? provider[_WidgetProviderOptionLocation]
+                  : WidgetProviderLocation.Local,
+              dependencies:
+                  provider.containsKey(_WidgetProviderOptionDependencies)
+                      ? provider[_WidgetProviderOptionDependencies]
+                      : const []);
+        } else if (provider is WidgetContainerFactory) {
+          logger.fine('Adding widget provider from factory');
+
+          widgetProvider = WidgetProvider(provider);
+        } else {
+          logger.severe('Object cannot be converted to a widget provider');
+
+          throw Exception('Invalid WidgetProvider.');
+        }
+
+        switch (widgetProvider.location) {
+          case WidgetProviderLocation.Local:
+            logger.fine('Add widget provider locally');
+
+            widgets.add(widgetProvider);
+            break;
+
+          case WidgetProviderLocation.Root:
+            logger.fine('Add widget provider in root module');
+
+            root.widgets.add(widgetProvider);
+            break;
+
+          default:
+            throw StateError(
+                'WidgetProvider contains unsupported location: ${widgetProvider.location}');
+        }
+      }
+
+      logger.info('Added ${widgets.length} widgets');
+    }
   }
 
   void _registerCoreServices() {

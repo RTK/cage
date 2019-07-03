@@ -62,7 +62,7 @@ class Injector implements Interface.Injector {
       }
 
       injector = injector._parent;
-    } while (injector != null);
+    } while (injector != null && !identical(injector, injector._parent));
 
     return false;
   }
@@ -118,7 +118,7 @@ class Injector implements Interface.Injector {
       }
 
       injector = injector._parent;
-    } while (injector != null);
+    } while (injector != null && !identical(injector, injector._parent));
 
     throw Exception('There is no dependency with token $token registered');
   }

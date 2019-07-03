@@ -68,9 +68,7 @@ void main() {
 
       expect(cagedModule.children.length, 1);
     });
-  });
 
-  group('bootstrapServices()', () {
     test('It should add the services correctly', () {
       final Module myModule = Module(const ModuleKey('my'), services: [
         ServiceProvider.fromValue('t', provideAs: 't'),
@@ -81,13 +79,15 @@ void main() {
       final CagedModule cagedModule =
           CagedModule.fromModuleType(myModule, injector);
 
-      cagedModule.bootstrapServices();
+      cagedModule.bootstrap();
 
       expect(cagedModule.services.length, 3);
       expect(cagedModule.services[0], isInstanceOf<ServiceProvider>());
       expect(cagedModule.services[1], isInstanceOf<ServiceProvider>());
       expect(cagedModule.services[2], isInstanceOf<ServiceProvider>());
 
+      expect(cagedModule.services[0].injectionToken,
+          generateRuntimeInjectionToken('t'));
       expect(cagedModule.services[1].injectionToken,
           generateRuntimeInjectionToken('u'));
       expect(cagedModule.services[2].injectionToken,
@@ -100,26 +100,29 @@ void main() {
       final CagedModule cagedModule =
           CagedModule.fromModuleType(myModule, injector);
 
-      expect(() => cagedModule.bootstrapServices(), throwsException);
+      expect(() => cagedModule.bootstrap(), throwsException);
     });
-  });
 
-  group('bootstrapWidgets', () {
     test('It should add the widgets correctly', () {
-      final WidgetContainerFactory wcf = WidgetContainerFactory(
+      final WidgetContainerFactory wcf1 = WidgetContainerFactory(
           createPresenter: (final Public.Injector injector) => null,
           createView: () => null,
           widgetKey: Key('wcf'));
 
+      final WidgetContainerFactory wcf2 = WidgetContainerFactory(
+          createPresenter: (final Public.Injector injector) => null,
+          createView: () => null,
+          widgetKey: Key('wcf2'));
+
       final Module myModule = Module(const ModuleKey('my'), widgets: [
-        WidgetProvider(wcf),
-        {'widget': wcf}
+        WidgetProvider(wcf1),
+        {'widget': wcf2}
       ]);
 
       final CagedModule cagedModule =
           CagedModule.fromModuleType(myModule, injector);
 
-      cagedModule.bootstrapWidgets();
+      cagedModule.bootstrap();
 
       expect(cagedModule.widgets.length, 2);
       expect(cagedModule.widgets[0], isInstanceOf<WidgetProvider>());
@@ -133,7 +136,7 @@ void main() {
       final CagedModule cagedModule =
           CagedModule.fromModuleType(myModule, injector);
 
-      expect(() => cagedModule.bootstrapWidgets(), throwsException);
+      expect(() => cagedModule.bootstrap(), throwsException);
     });
   });
 }

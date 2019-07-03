@@ -17,4 +17,9 @@ class Injectable {
   @literal
   const Injectable(this.injectionToken, this.instance,
       {this.denyOverwrite = false});
+
+  @override
+  String toString() {
+    return 'Injectable<<$injectionToken>>';
+  }
 }

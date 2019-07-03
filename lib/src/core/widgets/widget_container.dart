@@ -8,6 +8,7 @@ import 'package:meta/meta.dart';
 
 import 'presenter.dart';
 import 'stateful_widget_container.dart';
+import 'types.dart';
 import 'view.dart';
 
 import '../di/public_injector.dart' as Public;

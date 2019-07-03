@@ -6,10 +6,9 @@ import 'package:cage/debug.dart';
 import 'package:flutter/widgets.dart';
 import 'package:meta/meta.dart';
 
+import 'types.dart';
 import 'widget_container.dart';
 import 'widget_container_factory.dart';
-
-typedef UpdateWidgetCallback = void Function(VoidCallback updateCallback);
 
 typedef WidgetCreatorCallback<O> = WidgetContainer Function(Key widgetToken,
     [O widgetOptions]);
@@ -189,15 +188,4 @@ void updateViewFromPresenter<P>(
   assert(!view._isDisposed);
 
   view._updateCallback(updateCb);
-}
-
-abstract class MyPresenterInterface {
-  String id;
-}
-
-class MyView extends View<MyPresenterInterface> {
-  @override
-  Widget createView() {
-    return Text(presenter.id);
-  }
 }

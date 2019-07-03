@@ -67,7 +67,7 @@ void main() {
         final CagedModule cagedModule = CagedModule.fromModuleType(
             Module(const ModuleKey('Test'), widgets: [wcf]), injector);
 
-        cagedModule.bootstrapWidgets();
+        cagedModule.bootstrap();
 
         final WidgetResolver resolver = injector.getDependency(WidgetResolver);
 
@@ -121,11 +121,11 @@ void main() {
 
           final CagedModule rootCagedModule =
               CagedModule.fromModuleType(rootModule, injector);
-          rootCagedModule.bootstrapWidgets();
+          rootCagedModule.bootstrap();
 
           final CagedModule childCagedModule = CagedModule.fromModuleType(
               childModule, childInjector, rootCagedModule, rootCagedModule);
-          childCagedModule.bootstrapWidgets();
+          childCagedModule.bootstrap();
 
           final WidgetResolver childResolver =
               childCagedModule.injector.getDependency(WidgetResolver);
@@ -145,7 +145,7 @@ void main() {
         final CagedModule cagedModule =
             CagedModule.fromModuleType(myModule, injector);
 
-        cagedModule.bootstrapWidgets();
+        cagedModule.bootstrap();
 
         final WidgetResolver resolver = injector.getDependency(WidgetResolver);
 

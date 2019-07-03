@@ -39,7 +39,7 @@ void main() {
           final CagedModule cagedModule =
               CagedModule.fromModuleType(parentModule, injector);
 
-          cagedModule.bootstrapServices();
+          cagedModule.bootstrap();
 
           expect(injector.getDependency(ServiceTest), isNotNull);
         });
@@ -105,7 +105,7 @@ void main() {
           final CagedModule cagedModule =
               CagedModule.fromModuleType(module, injector);
 
-          cagedModule.bootstrapServices();
+          cagedModule.bootstrap();
 
           expect(cagedModule.injector.getDependency('Test'), isNotNull);
           expect(cagedModule.injector.getDependency('TestB'), isNotNull);
@@ -129,7 +129,7 @@ void main() {
           final CagedModule cagedModule =
               CagedModule.fromModuleType(module, injector);
 
-          cagedModule.bootstrapServices();
+          cagedModule.bootstrap();
 
           expect(() => cagedModule.injector.getDependency(ServiceTest),
               throwsException);
@@ -149,7 +149,7 @@ void main() {
           final CagedModule cagedModule =
               CagedModule.fromModuleType(module, injector);
 
-          cagedModule.bootstrapServices();
+          cagedModule.bootstrap();
 
           expect(cagedModule.injector.getDependency(ServiceBTest), isNotNull);
         });
@@ -162,7 +162,7 @@ void main() {
         expect(
             () => ServiceResolver(CagedModule.fromModuleType(
                     Module(const ModuleKey('test')), injector))
-                .requireServices([InjectionToken('test')]),
+                .requireServices([const InjectionToken('test')]),
             throwsException);
       });
 
@@ -170,6 +170,7 @@ void main() {
         test(
             'It should throw, when a provider can be resolved, but not its dependencies',
             () {
+          enableLogging();
           final Module myModule = Module(const ModuleKey('my'), services: [
             ServiceProvider.fromFactory(
                 ServiceBTest,
@@ -181,9 +182,10 @@ void main() {
           final CagedModule cagedModule =
               CagedModule.fromModuleType(myModule, injector);
 
-          cagedModule.bootstrapServices();
+          cagedModule.bootstrap();
 
-          final ServiceResolver serviceResolver = ServiceResolver(cagedModule);
+          final ServiceResolver serviceResolver =
+              injector.getDependency(ServiceResolver);
 
           expect(
               () => serviceResolver.requireServices(
@@ -214,7 +216,7 @@ void main() {
           final CagedModule cagedModule =
               CagedModule.fromModuleType(myModule, injector);
 
-          cagedModule.bootstrapServices();
+          cagedModule.bootstrap();
 
           final ServiceResolver serviceResolver = ServiceResolver(cagedModule);
 
@@ -222,6 +224,55 @@ void main() {
               () => serviceResolver.requireServices(
                   [generateRuntimeInjectionToken(ServiceTest)]),
               throwsException);
+        });
+
+        test('It should use the parent injector, when the location is parent',
+            () {
+          final Module childModule =
+              Module(const ModuleKey('child'), services: [
+            ServiceProvider.fromFactory(
+                ServiceTest, (final Public.Injector injector) => ServiceTest(),
+                location: Public.ServiceProviderLocation.Parent)
+          ]);
+
+          final Module parentModule =
+              Module(const ModuleKey('parent'), imports: [childModule]);
+
+          final CagedModule cagedModule =
+              CagedModule.fromModuleType(parentModule, injector);
+
+          cagedModule.bootstrap();
+
+          final ServiceResolver serviceResolver =
+              injector.getDependency(ServiceResolver);
+
+          serviceResolver
+              .requireServices([generateRuntimeInjectionToken(ServiceTest)]);
+
+          expect(injector.getDependency(ServiceTest), isNotNull);
+        });
+
+        test(
+            'It should use its injector when the location is parent, but there is no parent',
+            () {
+          final Module module = Module(const ModuleKey('module'), services: [
+            ServiceProvider.fromFactory(
+                ServiceTest, (final Public.Injector injector) => ServiceTest(),
+                location: Public.ServiceProviderLocation.Parent)
+          ]);
+
+          final CagedModule cagedModule =
+              CagedModule.fromModuleType(module, injector);
+
+          cagedModule.bootstrap();
+
+          final ServiceResolver serviceResolver =
+              injector.getDependency(ServiceResolver);
+
+          serviceResolver
+              .requireServices([generateRuntimeInjectionToken(ServiceTest)]);
+
+          expect(injector.getDependency(ServiceTest), isNotNull);
         });
       });
     });
