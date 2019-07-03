@@ -80,7 +80,8 @@ void main() {
 
         final Cage cage = Cage.fromCagedModule(cagedModule);
 
-        expect(cage.toString(), 'Cage of <<test>>');
+        expect(cage.toString(),
+            'Cage <CagedModule <Module <ModuleKey key="test">>>');
       });
     });
   });

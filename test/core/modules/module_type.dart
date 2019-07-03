@@ -21,6 +21,5 @@ class ModuleTypeImpl extends ModuleType {
   ModuleTypeImpl(ModuleKey id) : super(id);
 
   @override
-  // TODO: implement module
   Module get module => null;
 }

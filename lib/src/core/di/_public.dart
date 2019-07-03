@@ -7,4 +7,9 @@ library cage.core.di;
 export 'injection_token.dart';
 export 'public_injector.dart';
 export 'service_provider.dart'
-    show ServiceProvider, ServiceProviderLocation, ServiceProviderType;
+    show
+        ServiceProvider,
+        ServiceProviderLocation,
+        ServiceProviderType,
+        ServiceProviderInstantiationType,
+        FactoryProvider;

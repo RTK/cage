@@ -77,6 +77,12 @@ class ServiceProvider<T> {
         this.dependencies = const [];
 }
 
+/// Returns the original value used for the generation of [InjectionToken] for
+/// a [ServiceProvider].
+Object getServiceProviderOriginalToken<S>(
+        final ServiceProvider<S> serviceProvider) =>
+    serviceProvider._injectionToken;
+
 /// Creates the service's instance.
 ///
 /// If the [type] equals [ServiceProviderType.Value], no further operation

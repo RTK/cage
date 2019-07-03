@@ -17,6 +17,6 @@ class ModuleKey {
 
   @override
   String toString() {
-    return '<<$key>>';
+    return 'ModuleKey key="$key"';
   }
 }

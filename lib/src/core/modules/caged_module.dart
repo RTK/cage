@@ -80,7 +80,7 @@ class CagedModule {
     logger = createLogger('core.modules.caged_module($id)');
   }
 
-  void bootstrap() {
+  void bootstrap([bool bootstrapResolvers = true]) {
     if (!_coreServicesRegistered) {
       _registerCoreServices();
     }
@@ -89,15 +89,14 @@ class CagedModule {
     _bootstrapServices();
     _bootstrapWidgets();
 
-    final ServiceResolver serviceResolver =
-        injector.getDependency(ServiceResolver);
+    if (bootstrapResolvers) {
+      _bootstrapResolvers();
+    }
+  }
 
-    serviceResolver.bootstrap();
-
-    final WidgetResolver widgetResolver =
-        injector.getDependency(WidgetResolver);
-
-    widgetResolver.bootstrap();
+  @override
+  String toString() {
+    return 'CagedModule <$_module>';
   }
 
   void _bootstrapImports() {
@@ -113,10 +112,28 @@ class CagedModule {
 
         children.add(childModule);
 
-        childModule.bootstrap();
+        childModule.bootstrap(false);
       }
     } else {
       logger.info('No imports defined');
+    }
+  }
+
+  _bootstrapResolvers() {
+    final ServiceResolver serviceResolver =
+        injector.getDependency(ServiceResolver);
+
+    serviceResolver.bootstrap();
+
+    final WidgetResolver widgetResolver =
+        injector.getDependency(WidgetResolver);
+
+    widgetResolver.bootstrap();
+
+    if (children.isNotEmpty) {
+      for (final CagedModule child in children) {
+        child._bootstrapResolvers();
+      }
     }
   }
 
@@ -188,6 +205,8 @@ class CagedModule {
         } else {
           throw Exception('Invalid ServiceProvider.');
         }
+
+        logger.fine('Saving provider <${serviceProvider.injectionToken}>');
 
         switch (serviceProvider.location) {
           case ServiceProviderLocation.Local:

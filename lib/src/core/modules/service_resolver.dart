@@ -77,6 +77,11 @@ class ServiceResolver {
     }
   }
 
+  @override
+  String toString() {
+    return 'ServiceResolver<$_cagedModule>';
+  }
+
   /// Tries to resolve a [ServiceProvider] for given [injectionToken].
   ///
   /// Tries to resolve by iterating over each parent. If no [ServiceResolver]
@@ -93,7 +98,8 @@ class ServiceResolver {
       final ServiceResolver moduleServiceResolver =
           module.injector.getDependency(ServiceResolver);
 
-      _logger.info(moduleServiceResolver._servicesMap);
+      _logger.severe(moduleServiceResolver);
+      _logger.severe(moduleServiceResolver._servicesMap);
 
       if (moduleServiceResolver._servicesMap.containsKey(injectionToken)) {
         return _ServiceProviderResolver(
@@ -101,8 +107,12 @@ class ServiceResolver {
             _cagedModule.injector);
       }
 
+      if (identical(module, module.parent)) {
+        break;
+      }
+
       module = module.parent;
-    } while (module != null && !identical(module, module.parent));
+    } while (module != null);
 
     return null;
   }

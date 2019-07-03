@@ -5,3 +5,4 @@
 library cage;
 
 export 'src/core/_public.dart';
+export 'src/state_management/_public.dart';
