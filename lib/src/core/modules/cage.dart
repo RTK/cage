@@ -31,6 +31,6 @@ class Cage {
 
   @override
   String toString() {
-    return 'Cage of ${_cagedModule.id}';
+    return 'Cage <$_cagedModule>';
   }
 }

@@ -61,8 +61,12 @@ class Injector implements Interface.Injector {
         return true;
       }
 
+      if (identical(injector, injector._parent)) {
+        break;
+      }
+
       injector = injector._parent;
-    } while (injector != null && !identical(injector, injector._parent));
+    } while (injector != null);
 
     return false;
   }
@@ -117,8 +121,12 @@ class Injector implements Interface.Injector {
         return injector._dependencies[token].instance;
       }
 
+      if (identical(injector, injector._parent)) {
+        break;
+      }
+
       injector = injector._parent;
-    } while (injector != null && !identical(injector, injector._parent));
+    } while (injector != null);
 
     throw Exception('There is no dependency with token $token registered');
   }

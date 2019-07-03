@@ -48,6 +48,6 @@ class TestCage {
   /// Returns a readable string
   @override
   String toString() {
-    return 'Test cage of <$_cage>';
+    return 'TestCage <$_cage>';
   }
 }

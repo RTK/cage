@@ -119,7 +119,8 @@ void main() {
 
         final TestCage testCage = TestCage(cage);
 
-        expect(testCage.toString(), 'Test cage of <Cage of <<test>>>');
+        expect(testCage.toString(),
+            'TestCage <Cage <CagedModule <Module <ModuleKey key="test">>>>');
       });
     });
   });

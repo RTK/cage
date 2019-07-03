@@ -14,7 +14,7 @@ const MutationToken ChangeTextMutationToken =
     const MutationToken('change_text');
 
 void main() {
-  test('It should work', () async {
+  test('It should work', () {
     const ModuleKey storeKey = const ModuleKey('Test');
 
     final StoreModule<MyState> storeModule =

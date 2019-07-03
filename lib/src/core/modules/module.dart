@@ -38,4 +38,9 @@ class Module extends ModuleType {
   const Module(final ModuleKey id,
       {this.imports, this.rootWidget, this.services, this.widgets})
       : super(id);
+
+  @override
+  String toString() {
+    return 'Module <$id>';
+  }
 }
