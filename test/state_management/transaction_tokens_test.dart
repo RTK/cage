@@ -40,27 +40,11 @@ void main() {
     test('It should create', () {
       expect(const ActionToken('token'), isNotNull);
     });
-
-    test('It should throw, when the passed value is null or empty', () {
-      expect(() => ActionToken(null), throwsAssertionError);
-    });
-
-    test('It should throw, when given value string is empty', () {
-      expect(() => ActionToken(''), throwsAssertionError);
-    });
   });
 
   group('MutationToken', () {
     test('It should create', () {
       expect(const MutationToken('token'), isNotNull);
-    });
-
-    test('It should throw, when the passed value is null', () {
-      expect(() => MutationToken(null), throwsAssertionError);
-    });
-
-    test('It should throw, when given value string is empty', () {
-      expect(() => MutationToken(''), throwsAssertionError);
     });
   });
 
