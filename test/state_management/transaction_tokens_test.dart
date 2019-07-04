@@ -31,7 +31,7 @@ void main() {
 
     group('toString()', () {
       test('It should return the value', () {
-        expect(const ActionToken('test').toString(), isNotNull);
+        expect(const TransactionToken('test').toString(), 'test');
       });
     });
   });
@@ -40,11 +40,21 @@ void main() {
     test('It should create', () {
       expect(const ActionToken('token'), isNotNull);
     });
+
+    group('toString()', () {
+      test('It should return the correct value', () {
+        expect(const ActionToken('test').toString(), 'ActionToken <test>');
+      });
+    });
   });
 
   group('MutationToken', () {
     test('It should create', () {
       expect(const MutationToken('token'), isNotNull);
+    });
+
+    test('It should return the correct value', () {
+      expect(const MutationToken('test').toString(), 'MutationToken <test>');
     });
   });
 

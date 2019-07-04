@@ -12,7 +12,7 @@ import 'package:meta/meta.dart';
 @immutable
 class ActionToken extends TransactionToken {
   @literal
-  const ActionToken(final String value) : super('AC_$value');
+  const ActionToken(final String value) : super('ActionToken <$value>');
 }
 
 /// Token class used to be associated with mutations.
@@ -23,7 +23,7 @@ class ActionToken extends TransactionToken {
 @immutable
 class MutationToken extends TransactionToken {
   @literal
-  const MutationToken(final String value) : super('MT_$value');
+  const MutationToken(final String value) : super('MutationToken <$value>');
 }
 
 /// Base class for [ActionToken] and [MutationToken].
