@@ -81,8 +81,8 @@ void main() {
         test('It should add the feeders to the store', () {
           final StoreModule<MyState> storeModule = StoreModule(
               const ModuleKey('MyStore'), MyState(), feeders: [
-            MyTestFeeder(),
-            FeederProvider.fromValue(MyTestFeeder2())
+            FeederProvider.fromValue(MyTestFeeder2()),
+            MyTestFeeder()
           ]);
 
           expect(storeModule, isNotNull);
@@ -92,8 +92,8 @@ void main() {
           final Store store = getStoreModuleStore(storeModule);
 
           expect(store.feeders.length, 2);
-          expect(store.feeders[0], isInstanceOf<MyTestFeeder>());
-          expect(store.feeders[1], isInstanceOf<MyTestFeeder2>());
+          expect(store.feeders[0], isInstanceOf<MyTestFeeder2>());
+          expect(store.feeders[1], isInstanceOf<MyTestFeeder>());
         });
       });
     });

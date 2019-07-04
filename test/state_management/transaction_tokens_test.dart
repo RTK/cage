@@ -27,7 +27,8 @@ void main() {
       test(
           'It should return true if different instances with the same key are compared',
           () {
-        expect(const TransactionToken('test'), const TransactionToken('test'));
+        expect(const TransactionToken('test') == const TransactionToken('test'),
+            true);
       });
     });
 
