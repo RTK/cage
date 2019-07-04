@@ -312,6 +312,8 @@ class Store<S extends State> {
         setMutationState(mutation, _state);
 
         _state = mutation.mutate(payload);
+
+        assert(_state != null);
       }
 
       _refreshFeeders();
