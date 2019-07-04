@@ -56,8 +56,7 @@ class StoreModule<S extends State> extends ModuleType {
   /// with the [id].
   StoreModule(final ModuleKey id, final S initialState,
       {this.actions, this.feeders, this.mutations})
-      : assert(id != null),
-        _store = Store<S>(initialState),
+      : _store = Store<S>(initialState),
         super(id) {
     final List<ServiceProvider> moduleServices = [];
 
@@ -209,7 +208,8 @@ class StoreModule<S extends State> extends ModuleType {
 
           feederTokens.add(_TokenPairwise(feeder.injectionToken, null));
 
-          _logger.info('Added feeder with token "${feeder.injectionToken}"');
+          _logger.info(
+              'Added feeder from provider with token "${feeder.injectionToken}"');
         }
       }
     }

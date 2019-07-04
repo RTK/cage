@@ -5,6 +5,7 @@
 import 'package:cage/debug.dart';
 import 'package:cage/src/_private.dart';
 import 'package:flutter/widgets.dart';
+import 'package:meta/meta.dart';
 
 typedef void InitializerCallback(Widget widget);
 
@@ -62,3 +63,6 @@ class FlutterRuntime {
                       fontSize: 32,
                       color: Color.fromARGB(255, 255, 255, 255))))));
 }
+
+@visibleForTesting
+FlutterRuntime createFlutterRuntimeInstance() => FlutterRuntime._internal();

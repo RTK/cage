@@ -4,54 +4,63 @@
 
 import 'package:cage/cage.dart';
 import 'package:cage/runtime.dart';
+import 'package:cage/src/_private.dart' show createFlutterRuntimeInstance;
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  WidgetContainerFactory wcf;
+  group('FlutterRuntime', () {
+    WidgetContainerFactory wcf;
 
-  setUp(() {
-    wcf = WidgetContainerFactory(
-        createPresenter: (final Injector injector) => TestPresenter(),
-        createView: () => TestView(),
-        widgetKey: Key('MyWidget'));
+    setUp(() {
+      wcf = WidgetContainerFactory(
+          createPresenter: (final Injector injector) => TestPresenter(),
+          createView: () => TestView(),
+          widgetKey: Key('MyWidget'));
+    });
+
+    testWidgets(
+        'bootstrapping a module without a root widget should throw an error',
+        (WidgetTester widgetTester) {
+      Module module = Module(const ModuleKey('Test'));
+
+      expect(() => FlutterRuntime.bootstrapModule(module), throwsException);
+    });
+
+    testWidgets(
+        'bootstrapping a module with a root widget should call the flutter runApp method with given root widget',
+        (final WidgetTester widgetTester) async {
+      bool isInitialized = false;
+
+      FlutterRuntime.initializer = (Widget widget) {
+        isInitialized = true;
+
+        runApp(widget);
+      };
+
+      final Module module = Module(const ModuleKey('Test'),
+          rootWidget: wcf, widgets: [WidgetProvider(wcf)]);
+
+      FlutterRuntime.bootstrapModule(module);
+
+      expect(isInitialized, true);
+
+      await widgetTester.pump();
+      await widgetTester.pump();
+
+      final Finder findContainer =
+          find.byWidgetPredicate((Widget widget) => widget is Container);
+
+      expect(findContainer, findsOneWidget);
+
+      await widgetTester.pump();
+    });
   });
 
-  testWidgets(
-      'bootstrapping a module without a root widget should throw an error',
-      (WidgetTester widgetTester) {
-    Module module = Module(const ModuleKey('Test'));
-
-    expect(() => FlutterRuntime.bootstrapModule(module), throwsException);
-  });
-
-  testWidgets(
-      'bootstrapping a module with a root widget should call the flutter runApp method with given root widget',
-      (final WidgetTester widgetTester) async {
-    bool isInitialized = false;
-
-    FlutterRuntime.initializer = (Widget widget) {
-      isInitialized = true;
-
-      runApp(widget);
-    };
-
-    final Module module = Module(const ModuleKey('Test'),
-        rootWidget: wcf, widgets: [WidgetProvider(wcf)]);
-
-    FlutterRuntime.bootstrapModule(module);
-
-    expect(isInitialized, true);
-
-    await widgetTester.pump();
-    await widgetTester.pump();
-
-    final Finder findContainer =
-        find.byWidgetPredicate((Widget widget) => widget is Container);
-
-    expect(findContainer, findsOneWidget);
-
-    await widgetTester.pump();
+  group('createFlutterRuntimeInstance()', () {
+    test('It should create an instance', () {
+      expect(createFlutterRuntimeInstance(), isInstanceOf<FlutterRuntime>());
+    });
   });
 }
 

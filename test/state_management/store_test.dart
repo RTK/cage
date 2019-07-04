@@ -364,6 +364,6 @@ class MyMutation extends Mutation<MyState, void> {
   MyState mutate([final void payload]) {
     mutateCalled = true;
 
-    return null;
+    return MyState();
   }
 }
