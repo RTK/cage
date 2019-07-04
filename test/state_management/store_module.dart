@@ -100,7 +100,7 @@ void main() {
 
     group('dispose()', () {
       test('It should dispose the store', () {
-        final StoreModule storeModule =
+        final StoreModule<MyState> storeModule =
             StoreModule(const ModuleKey('MyStore'), MyState());
         final Store myStore = getStoreModuleStore(storeModule);
 

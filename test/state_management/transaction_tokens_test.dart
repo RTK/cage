@@ -23,6 +23,12 @@ void main() {
       test('It should compare the values when a CommitToken is passed', () {
         expect(const TransactionToken('test'), const TransactionToken('test'));
       });
+
+      test(
+          'It should return true if different instances with the same key are compared',
+          () {
+        expect(const TransactionToken('test'), const TransactionToken('test'));
+      });
     });
 
     group('toString()', () {
