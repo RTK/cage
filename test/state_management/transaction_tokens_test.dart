@@ -23,10 +23,6 @@ void main() {
       test('It should compare the values when a CommitToken is passed', () {
         expect(const TransactionToken('test'), const TransactionToken('test'));
       });
-
-      test('It should return false otherwise', () {
-        expect(const TransactionToken('test') == 123, false);
-      });
     });
 
     group('toString()', () {

@@ -25,10 +25,6 @@ void main() {
           () {
         expect(const InjectionToken('a'), const InjectionToken('a'));
       });
-
-      test('It should return false for everything else', () {
-        expect(const InjectionToken('a') == 'a', false);
-      });
     });
   });
 

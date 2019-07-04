@@ -41,10 +41,11 @@ void main() {
           () {
         const InjectionToken token = InjectionToken('test');
 
-        injector
-            .registerDependency(Injectable(token, 'test', denyOverwrite: true));
+        injector.registerDependency(
+            const Injectable(token, 'test', denyOverwrite: true));
 
-        expect(() => injector.registerDependency(Injectable(token, 'text')),
+        expect(
+            () => injector.registerDependency(const Injectable(token, 'text')),
             throwsException);
       });
     });
@@ -124,8 +125,8 @@ void main() {
         const InjectionToken token_b = InjectionToken('b');
         const InjectionToken token_c = InjectionToken('c');
 
-        injector.registerDependency(Injectable(token_a, 'a'));
-        injector.registerDependency(Injectable(token_b, 'b'));
+        injector.registerDependency(const Injectable(token_a, 'a'));
+        injector.registerDependency(const Injectable(token_b, 'b'));
 
         expect(injector.hasDependencies([token_a, token_b, token_c]), false);
       });
@@ -135,9 +136,9 @@ void main() {
         const InjectionToken token_b = InjectionToken('b');
         const InjectionToken token_c = InjectionToken('c');
 
-        injector.registerDependency(Injectable(token_a, 'a'));
-        injector.registerDependency(Injectable(token_b, 'b'));
-        injector.registerDependency(Injectable(token_c, 'c'));
+        injector.registerDependency(const Injectable(token_a, 'a'));
+        injector.registerDependency(const Injectable(token_b, 'b'));
+        injector.registerDependency(const Injectable(token_c, 'c'));
 
         expect(injector.hasDependencies([token_a, token_b, token_c]), true);
       });
@@ -145,8 +146,10 @@ void main() {
 
     group('toString()', () {
       test('It should return the correct string', () {
-        final Injectable injA = Injectable(const InjectionToken('a'), 'a');
-        final Injectable injB = Injectable(const InjectionToken('b'), 'b');
+        final Injectable injA =
+            const Injectable(const InjectionToken('a'), 'a');
+        final Injectable injB =
+            const Injectable(const InjectionToken('b'), 'b');
 
         final Map<InjectionToken, Injectable> injectables = {
           Injector.token: Injectable(Injector.token, injector),

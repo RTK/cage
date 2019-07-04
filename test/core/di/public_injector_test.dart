@@ -33,8 +33,8 @@ void main() {
         const String value_a = 'a';
         const String value_b = 'b';
 
-        injector.registerDependency(Injectable(token_a, value_a));
-        injector.registerDependency(Injectable(token_b, value_b));
+        injector.registerDependency(const Injectable(token_a, value_a));
+        injector.registerDependency(const Injectable(token_b, value_b));
 
         final Public.Injector publicInjector = createPublicInjector(injector);
 

@@ -3,7 +3,6 @@
 // found in the LICENSE file.
 
 import 'package:cage/cage.dart' hide Store;
-import 'package:cage/debug.dart';
 import 'package:cage/runtime.dart';
 import 'package:cage/src/_private.dart' show Store, getStoreModuleStore;
 import 'package:flutter_test/flutter_test.dart';

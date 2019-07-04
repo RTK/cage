@@ -4,7 +4,6 @@
 
 import 'package:cage/cage.dart' as Public;
 import 'package:cage/src/_private.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

@@ -30,8 +30,8 @@ void main() {
           myFeeder
         ]);
 
-        expect(myStore.actions.containsKey(ActionToken('abc')), true);
-        expect(myStore.mutations.containsKey(MutationToken('abc')), true);
+        expect(myStore.actions.containsKey(const ActionToken('abc')), true);
+        expect(myStore.mutations.containsKey(const MutationToken('abc')), true);
         expect(myStore.feeders.contains(myFeeder), true);
       });
     });
