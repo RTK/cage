@@ -6,9 +6,10 @@ import 'dart:async';
 
 import 'package:meta/meta.dart';
 
+import 'envelope.dart';
 import 'transaction_tokens.dart';
 
-typedef TransactionCallback = void Function(Envelope envelope);
+typedef _TransactionCallback = void Function(Envelope envelope);
 
 /// Global [Dispatcher].
 ///
@@ -22,18 +23,6 @@ class Dispatcher {
   final StreamController<Envelope> _subscriptionStream =
       StreamController.broadcast();
 
-  /// Dispatches an action.
-  ///
-  /// Takes an [actionToken] and optionally a [payload] to be wrapped in an
-  /// [Envelope].
-  void dispatchAction<P>(final ActionToken actionToken, [final P payload]) {
-    _subscriptionStream.sink.add(Envelope<P>(actionToken, payload));
-  }
-
-  void _dispose() {
-    _subscriptionStream.close();
-  }
-
   /// Factory constructor for [Dispatcher].
   ///
   /// Always returns the [_instance].
@@ -41,28 +30,36 @@ class Dispatcher {
 
   /// Internal constructor
   Dispatcher._internal();
-}
 
-/// Wraps an [ActionToken] and a payload to be broadcasted over the
-/// [Dispatcher].
-@immutable
-class Envelope<P> {
-  final ActionToken actionToken;
+  /// Dispatches an action.
+  ///
+  /// Takes an [actionToken] and optionally a [payload] to be wrapped in an
+  /// [Envelope].
+  void dispatchAction<P>(final ActionToken actionToken, [final P payload]) {
+    assert(!_subscriptionStream.isClosed && !_subscriptionStream.isPaused);
 
-  final P payload;
+    _subscriptionStream.sink.add(Envelope<P>(actionToken, payload));
+  }
 
-  @literal
-  const Envelope(this.actionToken, this.payload);
-}
+  /// Registers a callback on [Dispatcher] events.
+  ///
+  /// Whenever the Dispatcher] dispatches an [Envelope], the [listenCallback]
+  /// is called.
+  ///
+  /// The Method returns a [StreamSubscription], so the listener can cancel the
+  /// [StreamSubscription].
+  StreamSubscription<Envelope> listenToDispatcher(
+      final _TransactionCallback listenCallback) {
+    assert(!_subscriptionStream.isClosed && !_subscriptionStream.isPaused);
 
-/// This function is used to listen to the [Dispatcher]. Whenever the
-/// [Dispatcher] dispatches an [Envelope], the [listenCallback] is called.
-///
-/// Method returns a [StreamSubscription], so the listener can cancel the
-/// [StreamSubscription].
-StreamSubscription<Envelope> listenToDispatcher(
-    final TransactionCallback listenCallback) {
-  return Dispatcher()._subscriptionStream.stream.listen(listenCallback);
+    return Dispatcher()._subscriptionStream.stream.listen(listenCallback);
+  }
+
+  void _dispose() {
+    assert(!_subscriptionStream.isClosed);
+
+    _subscriptionStream.close();
+  }
 }
 
 /// This function is used to dispose the global [Dispatcher].

@@ -4,6 +4,7 @@
 
 export 'action.dart';
 export 'dispatcher.dart';
+export 'envelope.dart';
 export 'feeder.dart';
 export 'mutation.dart';
 export 'state.dart';

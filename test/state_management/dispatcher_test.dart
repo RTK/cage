@@ -17,7 +17,7 @@ void main() {
         'It should subscribe to the dispatcher event stream and return the StreamSubscription',
         () {
       final StreamSubscription<Envelope> subscription =
-          listenToDispatcher((final Envelope envelope) {});
+          Dispatcher().listenToDispatcher((final Envelope envelope) {});
 
       expect(subscription, isNotNull);
     });
@@ -27,7 +27,7 @@ void main() {
     test('It should close the subscription stream and cancel any subscription',
         () {
       final StreamSubscription<Envelope> subscription =
-          listenToDispatcher((final Envelope envelope) {});
+          Dispatcher().listenToDispatcher((final Envelope envelope) {});
 
       final StreamController<Envelope> streamController = disposeDispatcher();
 
@@ -52,7 +52,7 @@ void main() {
       test('It should add the commit to the stream', () async {
         const ActionToken actionToken = ActionToken('dispatcher_action');
 
-        listenToDispatcher((final Envelope envelope) {
+        Dispatcher().listenToDispatcher((final Envelope envelope) {
           expect(envelope, isNotNull);
           expect(envelope.actionToken, actionToken);
         });

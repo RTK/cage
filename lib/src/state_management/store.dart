@@ -7,6 +7,7 @@ import 'package:meta/meta.dart';
 
 import 'action.dart';
 import 'dispatcher.dart';
+import 'envelope.dart';
 import 'feeder.dart';
 import 'mutation.dart';
 import 'state.dart';
@@ -75,7 +76,8 @@ class Store<S extends State> {
     _logger.config('Initializing store');
 
     if (!ignoreGlobalDispatcher) {
-      dispatcherSubscription = listenToDispatcher((final Envelope envelope) {
+      dispatcherSubscription =
+          Dispatcher().listenToDispatcher((final Envelope envelope) {
         dispatch(envelope.actionToken, envelope.payload);
       });
     }
@@ -289,7 +291,7 @@ class Store<S extends State> {
     }
   }
 
-  /// Applies store [Mutation]s, caused by a comit from an [Action].
+  /// Applies store [Mutation]s, caused by a commit from an [Action].
   ///
   /// Triggers all [Mutation]s registered for the [MutationToken] passed in
   /// by the a commit from an [Action]. Beforehand updates each [Mutation]'s

@@ -10,7 +10,7 @@ import 'package:meta/meta.dart';
 ///
 /// Is marked [immutable].
 @immutable
-class State {
+abstract class State {
   @literal
   const State();
 }
