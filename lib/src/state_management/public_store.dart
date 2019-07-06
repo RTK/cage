@@ -30,6 +30,5 @@ class Store<S extends State> {
 }
 
 /// Sets the [Store]'s internal [Store] to [store].
-Store<S> createStoreModuleAccessor<S extends State>(
-        final Private.Store<S> store) =>
+Store<S> createPublicStore<S extends State>(final Private.Store<S> store) =>
     Store._internal(store);

@@ -9,7 +9,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   group('createStoreModuleAccessor()', () {
     test('It should create a Store', () {
-      final Public.Store store = createStoreModuleAccessor(MyStore());
+      final Public.Store store = createPublicStore(MyStore());
 
       expect(store, isNotNull);
       expect(store, isInstanceOf<Public.Store>());
@@ -20,7 +20,7 @@ void main() {
     group('dispatch()', () {
       test('It should call the internal stores dispatch method', () {
         final MyStore myStore = MyStore();
-        final Public.Store store = createStoreModuleAccessor(myStore);
+        final Public.Store store = createPublicStore(myStore);
 
         store.dispatch(const ActionToken('abc'), 'test');
 
@@ -36,7 +36,7 @@ void main() {
 
         myStore.addFeeder(myFeeder);
 
-        final Public.Store store = createStoreModuleAccessor(myStore);
+        final Public.Store store = createPublicStore(myStore);
 
         expect(store.getFeeder<MyFeeder>().contains(myFeeder), true);
       });

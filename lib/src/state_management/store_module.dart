@@ -70,7 +70,7 @@ class StoreModule<S extends State> extends ModuleType {
 
     _init(moduleServices, actionTokens, mutationTokens, feederTokens);
 
-    final Public.Store<S> pubStore = Public.createStoreModuleAccessor(_store);
+    final Public.Store<S> pubStore = createPublicStore(_store);
 
     moduleServices.add(ServiceProvider.fromValue(pubStore,
         provideAs: id, location: ServiceProviderLocation.Parent));
