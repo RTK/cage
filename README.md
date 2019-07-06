@@ -29,4 +29,4 @@ Business logic and view logic are separated, your models shall exist separately.
 [Looking for examples?](doc/widgets.md)
 
 ### Don't quite like what you see?
-Flutter currently does not provide any access to metadata. Thus fancy metadata/annotations used by libraries like angular currently do not work out of the box. For further development build_tools will be evaluated and may can be used productive someday. This will hopefully increase the currently needed boiletplate code.
+Flutter currently does not provide any access to metadata. Thus fancy metadata/annotations used by libraries like angular currently do not work out of the box. For further development build_tools will be evaluated and may can be used productive someday. This will hopefully decrease the usage of currently needed boiletplate code.
