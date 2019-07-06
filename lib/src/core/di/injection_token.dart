@@ -21,6 +21,32 @@ class InjectionToken {
   @literal
   const InjectionToken(this.token) : assert(token != null && token.length > 0);
 
+  /// Generates an [InjectionToken] at runtime (no constant) using the given
+  /// [base].
+  ///
+  /// The [base] argument can be of any [Type] ([Object]).
+  ///
+  /// If the [base] already is an [InjectionToken] it will be returned unmodified.
+  ///
+  /// If the [base] is a [String], a new [InjectionToken] will be generated, using
+  /// the [base] as token value.
+  ///
+  /// If [base] is null, an [Exception] is thrown.
+  ///
+  /// Otherwise the [base] toString() method will be invoked, its returned
+  /// [String] value used to generate a new [InjectionToken].
+  static InjectionToken generateFromObject(final Object base) {
+    if (base is InjectionToken) {
+      return base;
+    } else if (base is String) {
+      return InjectionToken(base);
+    }
+
+    assert(base != null);
+
+    return InjectionToken(base.toString());
+  }
+
   /// Provides the functionality to compare [InjectionToken].
   ///
   /// If the compared object is identical, equality is verified.
@@ -44,30 +70,4 @@ class InjectionToken {
 
   @override
   String toString() => token;
-}
-
-/// Generates an [InjectionToken] at runtime (no constant) using the given
-/// [base].
-///
-/// The [base] argument can be of any [Type] ([Object]).
-///
-/// If the [base] already is an [InjectionToken] it will be returned unmodified.
-///
-/// If the [base] is a [String], a new [InjectionToken] will be generated, using
-/// the [base] as token value.
-///
-/// If [base] is null, an [Exception] is thrown.
-///
-/// Otherwise the [base] toString() method will be invoked, its returned
-/// [String] value used to generate a new [InjectionToken].
-InjectionToken generateRuntimeInjectionToken(final Object base) {
-  if (base is InjectionToken) {
-    return base;
-  } else if (base is String) {
-    return InjectionToken(base);
-  }
-
-  assert(base != null);
-
-  return InjectionToken(base.toString());
 }

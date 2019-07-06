@@ -4,7 +4,7 @@
 
 import 'feeder.dart';
 import 'state.dart';
-import 'store.dart' as Private;
+import 'private_store.dart' as Private;
 import 'transaction_tokens.dart';
 
 /// Accessor used to access certain functionalities from a [Store].

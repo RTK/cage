@@ -4,5 +4,5 @@
 
 library cage.core.modules;
 
-export 'module.dart';
-export 'module_key.dart';
+export 'module.dart' show Module;
+export 'module_key.dart' show ModuleKey;

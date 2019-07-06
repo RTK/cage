@@ -5,9 +5,16 @@
 export 'action.dart' show Action;
 export 'dispatcher.dart' show Dispatcher;
 export 'feeder.dart' show Feeder;
-export 'mutation.dart';
-export 'state.dart';
+export 'mutation.dart' show Mutation;
+export 'state.dart' show State;
 export 'store_module.dart' show StoreModule;
-export 'store_module_accessor.dart' show Store;
-export 'store_module_provider.dart';
+export 'public_store.dart' show Store;
+export 'store_module_provider.dart'
+    show
+        ActionFactoryProvider,
+        ActionProvider,
+        FeederFactoryProvider,
+        FeederProvider,
+        MutationFactoryProvider,
+        MutationProvider;
 export 'transaction_tokens.dart' show ActionToken, MutationToken;

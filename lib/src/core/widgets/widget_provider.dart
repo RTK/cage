@@ -24,14 +24,14 @@ class WidgetProvider {
   ///
   /// Uses the [Key] required for instantiation for creation.
   InjectionToken get injectionToken =>
-      generateRuntimeInjectionToken(factory.widgetKey);
+      InjectionToken.generateFromObject(factory.widgetKey);
 
   WidgetProvider(this.factory,
       {final List<Object> dependencies: const [],
       location = WidgetProviderLocation.Local})
       : assert(factory != null),
         this.dependencies = dependencies != null && dependencies.isNotEmpty
-            ? dependencies.map(generateRuntimeInjectionToken).toList()
+            ? dependencies.map(InjectionToken.generateFromObject).toList()
             : const [],
         this.location =
             location != null ? location : WidgetProviderLocation.Local;

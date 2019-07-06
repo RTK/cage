@@ -36,7 +36,8 @@ void main() {
     test('It should generate the injectionToken from the key', () {
       final WidgetProvider wcfp = WidgetProvider(wcf);
 
-      expect(wcfp.injectionToken, generateRuntimeInjectionToken(wcf.widgetKey));
+      expect(wcfp.injectionToken,
+          InjectionToken.generateFromObject(wcf.widgetKey));
     });
   });
 }

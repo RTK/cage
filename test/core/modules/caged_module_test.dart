@@ -2,7 +2,7 @@
 // Use of this source code is governed by an MIT-style license that can be
 // found in the LICENSE file.
 
-import 'package:cage/cage.dart' as Public;
+import 'package:cage/cage.dart' as Public show Injector;
 import 'package:cage/src/_private.dart';
 import 'package:flutter/widgets.dart' show Key;
 import 'package:flutter_test/flutter_test.dart';
@@ -78,14 +78,14 @@ void main() {
             'value': 'u',
             'provideAs': 'u',
             'dependencies': ['test'],
-            'location': Public.ServiceProviderLocation.Root,
+            'location': ServiceProviderLocation.Root,
             'instantiationType': ServiceProviderInstantiationType.OnInject
           },
           {
             'factory': (final Public.Injector injector) => 'v',
             'provideAs': 'v',
             'dependencies': [],
-            'location': Public.ServiceProviderLocation.Root,
+            'location': ServiceProviderLocation.Root,
             'instantiationType': ServiceProviderInstantiationType.OnInject
           }
         ]);
@@ -101,11 +101,11 @@ void main() {
         expect(cagedModule.services[2], isInstanceOf<ServiceProvider>());
 
         expect(cagedModule.services[0].injectionToken,
-            generateRuntimeInjectionToken('t'));
+            InjectionToken.generateFromObject('t'));
         expect(cagedModule.services[1].injectionToken,
-            generateRuntimeInjectionToken('u'));
+            InjectionToken.generateFromObject('u'));
         expect(cagedModule.services[2].injectionToken,
-            generateRuntimeInjectionToken('v'));
+            InjectionToken.generateFromObject('v'));
       });
 
       test('It should throw, when an invalid provider is declared', () {
@@ -192,7 +192,7 @@ void main() {
           WidgetProvider(wcf1),
           {
             'widget': wcf2,
-            'location': Public.WidgetProviderLocation.Local,
+            'location': WidgetProviderLocation.Local,
             'dependencies': []
           }
         ]);

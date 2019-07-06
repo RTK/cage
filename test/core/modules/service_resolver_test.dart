@@ -2,7 +2,7 @@
 // Use of this source code is governed by an MIT-style license that can be
 // found in the LICENSE file.
 
-import 'package:cage/cage.dart' as Public;
+import 'package:cage/cage.dart' as Public show Injector;
 import 'package:cage/src/_private.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -187,7 +187,7 @@ void main() {
 
           expect(
               () => serviceResolver.requireServices(
-                  [generateRuntimeInjectionToken(ServiceBTest)]),
+                  [InjectionToken.generateFromObject(ServiceBTest)]),
               throwsException);
         });
 
@@ -220,7 +220,7 @@ void main() {
 
           expect(
               () => serviceResolver.requireServices(
-                  [generateRuntimeInjectionToken(ServiceTest)]),
+                  [InjectionToken.generateFromObject(ServiceTest)]),
               throwsException);
         });
 
@@ -230,7 +230,7 @@ void main() {
               Module(const ModuleKey('child'), services: [
             ServiceProvider.fromFactory(
                 ServiceTest, (final Public.Injector injector) => ServiceTest(),
-                location: Public.ServiceProviderLocation.Parent)
+                location: ServiceProviderLocation.Parent)
           ]);
 
           final Module parentModule =
@@ -244,8 +244,8 @@ void main() {
           final ServiceResolver serviceResolver =
               injector.getDependency(ServiceResolver);
 
-          serviceResolver
-              .requireServices([generateRuntimeInjectionToken(ServiceTest)]);
+          serviceResolver.requireServices(
+              [InjectionToken.generateFromObject(ServiceTest)]);
 
           expect(injector.getDependency(ServiceTest), isNotNull);
         });
@@ -256,7 +256,7 @@ void main() {
           final Module module = Module(const ModuleKey('module'), services: [
             ServiceProvider.fromFactory(
                 ServiceTest, (final Public.Injector injector) => ServiceTest(),
-                location: Public.ServiceProviderLocation.Parent)
+                location: ServiceProviderLocation.Parent)
           ]);
 
           final CagedModule cagedModule =
@@ -267,8 +267,8 @@ void main() {
           final ServiceResolver serviceResolver =
               injector.getDependency(ServiceResolver);
 
-          serviceResolver
-              .requireServices([generateRuntimeInjectionToken(ServiceTest)]);
+          serviceResolver.requireServices(
+              [InjectionToken.generateFromObject(ServiceTest)]);
 
           expect(injector.getDependency(ServiceTest), isNotNull);
         });

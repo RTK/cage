@@ -4,8 +4,8 @@
 
 library cage.core.di;
 
-export 'injection_token.dart';
-export 'public_injector.dart';
+export 'injection_token.dart' show InjectionToken;
+export 'public_injector.dart' show Injector;
 export 'service_provider.dart'
     show
         ServiceProvider,

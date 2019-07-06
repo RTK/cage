@@ -7,7 +7,7 @@ import 'dart:async';
 import 'package:meta/meta.dart';
 
 import 'state.dart';
-import 'store.dart';
+import 'private_store.dart';
 
 /// [Feeder]s are used to retrieve data from a [Store].
 ///

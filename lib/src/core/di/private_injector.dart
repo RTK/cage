@@ -22,7 +22,7 @@ import 'injector.dart' as Interface;
 class Injector implements Interface.Injector {
   /// Represents the [InjectionToken] which will be used to register itself
   /// to be accessible via DI.
-  static InjectionToken token = generateRuntimeInjectionToken(Injector);
+  static InjectionToken token = InjectionToken.generateFromObject(Injector);
 
   /// Contains all registered dependencies. Takes an [InjectionToken] as key
   /// and any kind of [Object] as value.
@@ -112,7 +112,8 @@ class Injector implements Interface.Injector {
   ///
   /// If no [Injector] can resolve the dependency, an [Exception] is thrown.
   T getDependency<T>(final Object injectionToken) {
-    final InjectionToken token = generateRuntimeInjectionToken(injectionToken);
+    final InjectionToken token =
+        InjectionToken.generateFromObject(injectionToken);
 
     Injector injector = this;
 

@@ -8,7 +8,7 @@ import 'action.dart';
 import 'feeder.dart';
 import 'mutation.dart';
 import 'state.dart';
-import 'store.dart';
+import 'private_store.dart';
 import 'transaction_tokens.dart';
 
 /// Helper class to instantiate a [Store] with [Action]s, [Mutation]s and

@@ -9,7 +9,8 @@ import 'caged_module.dart';
 import 'service_resolver.dart';
 
 import '../di/_private.dart';
-import '../di/public_injector.dart' as Public;
+import '../di/public_injector.dart' show createPublicInjector;
+import '../di/public_injector.dart' as Public show Injector;
 import '../widgets/_private.dart';
 
 /// Resolves widgets by looking for registered [WidgetContainerFactoryProvider]s
@@ -100,7 +101,7 @@ class WidgetResolver {
         resolvedContainerFactory.widgetContainerFactory;
 
     final Public.Injector widgetInjector =
-        Public.createPublicInjector(resolvedContainerFactory.injector);
+        createPublicInjector(resolvedContainerFactory.injector);
 
     return createWidgetContainer(factory, widgetInjector, widgetOptions);
   }
@@ -132,8 +133,8 @@ class WidgetResolver {
         injector.getDependency(ServiceResolver);
 
     final List<InjectionToken> dependencies = provider.dependencies
-        .map(generateRuntimeInjectionToken)
-        .where((InjectionToken injectionToken) =>
+        .map(InjectionToken.generateFromObject)
+        .where((final InjectionToken injectionToken) =>
             !injector.hasDependency(injectionToken))
         .toList(growable: false);
 

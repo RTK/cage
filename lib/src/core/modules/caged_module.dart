@@ -294,11 +294,12 @@ class CagedModule {
     logger.info('Register core services');
 
     injector.registerDependency(Injectable(
-        generateRuntimeInjectionToken(ServiceResolver), ServiceResolver(this),
+        InjectionToken.generateFromObject(ServiceResolver),
+        ServiceResolver(this),
         denyOverwrite: true));
 
     injector.registerDependency(Injectable(
-        generateRuntimeInjectionToken(WidgetResolver), WidgetResolver(this),
+        InjectionToken.generateFromObject(WidgetResolver), WidgetResolver(this),
         denyOverwrite: true));
 
     _coreServicesRegistered = true;

@@ -31,7 +31,7 @@ class ServiceProvider<T> {
   /// Returns a runtime generated [InjectionToken] using the value of
   /// [_injectionToken].
   InjectionToken get injectionToken =>
-      generateRuntimeInjectionToken(_injectionToken);
+      InjectionToken.generateFromObject(_injectionToken);
 
   /// Creates a service provider (injectable) from a factory
   /// the factory is represented as a factory provider callback which returns
@@ -57,7 +57,7 @@ class ServiceProvider<T> {
         _instance = null,
         _factoryProvider = factoryProvider,
         this.dependencies = dependencies != null && dependencies.isNotEmpty
-            ? dependencies.map(generateRuntimeInjectionToken).toList()
+            ? dependencies.map(InjectionToken.generateFromObject).toList()
             : const [];
 
   /// Creates a service provider (injectable) from a value (instance).

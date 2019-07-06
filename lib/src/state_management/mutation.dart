@@ -5,7 +5,7 @@
 import 'package:meta/meta.dart';
 
 import 'state.dart';
-import 'store.dart';
+import 'private_store.dart';
 import 'transaction_tokens.dart';
 
 /// A [Mutation] is used to mutate a [State].

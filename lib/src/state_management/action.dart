@@ -4,7 +4,7 @@
 import 'package:meta/meta.dart';
 
 import 'state.dart';
-import 'store.dart';
+import 'private_store.dart';
 import 'transaction_tokens.dart';
 
 /// An [Action] is used to be registered onto a [Store].

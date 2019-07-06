@@ -13,7 +13,8 @@ void main() {
         final ServiceProvider sp =
             ServiceProvider.fromValue('a', provideAs: 'Test');
 
-        expect(sp.injectionToken, generateRuntimeInjectionToken('Test'));
+        expect(sp.injectionToken,
+            Public.InjectionToken.generateFromObject('Test'));
       });
     });
 

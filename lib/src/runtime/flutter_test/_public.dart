@@ -3,4 +3,4 @@
 // found in the LICENSE file.
 
 export 'flutter_test_cage.dart' show TestCage;
-export 'flutter_test_runtime.dart';
+export 'flutter_test_runtime.dart' show FlutterTestRuntime;
