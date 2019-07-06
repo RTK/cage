@@ -19,7 +19,7 @@ typedef MutationFactoryProvider = Mutation Function(Public.Injector injector);
 /// ServiceProvider to provide an [Action] as service.
 ///
 /// Takes an [ActionToken] and an instance of [Action.
-class ActionProvider extends _ServiceProvider<ActionToken, Action> {
+class ActionProvider extends _StoreModuleServiceProvider<ActionToken, Action> {
   ActionProvider.fromFactory(
       final ActionToken provideAs, final ActionFactoryProvider factoryProvider,
       {final List<Object> dependencies})
@@ -44,7 +44,8 @@ class FeederProvider extends ServiceProvider<Feeder> {
 /// ServiceProvider to provide a [Mutation] as service.
 ///
 /// Takes a [MutationToken] and an instance of [Mutation].
-class MutationProvider extends _ServiceProvider<MutationToken, Mutation> {
+class MutationProvider
+    extends _StoreModuleServiceProvider<MutationToken, Mutation> {
   MutationProvider.fromFactory(final MutationToken provideAs,
       final MutationFactoryProvider mutationProvider,
       {final List<Object> dependencies})
@@ -62,8 +63,8 @@ class MutationProvider extends _ServiceProvider<MutationToken, Mutation> {
 ///
 /// Is used to default the ServiceProviderLocation and the
 /// [ServiceProviderInstantiationType].
-class _ServiceProvider<T, I> extends ServiceProvider<I> {
-  _ServiceProvider.fromFactory(
+abstract class _StoreModuleServiceProvider<T, I> extends ServiceProvider<I> {
+  _StoreModuleServiceProvider.fromFactory(
       final T provideAs, final FactoryProvider factoryProvider,
       {final List<Object> dependencies})
       : super.fromFactory(provideAs, factoryProvider,
@@ -71,7 +72,7 @@ class _ServiceProvider<T, I> extends ServiceProvider<I> {
             location: ServiceProviderLocation.Local,
             dependencies: dependencies);
 
-  _ServiceProvider.fromValue(final T provideAs, final I value)
+  _StoreModuleServiceProvider.fromValue(final T provideAs, final I value)
       : super.fromValue(value,
             provideAs: provideAs, location: ServiceProviderLocation.Local);
 }
