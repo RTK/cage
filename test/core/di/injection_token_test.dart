@@ -20,38 +20,38 @@ void main() {
       expect(() => InjectionToken(''), throwsAssertionError);
     });
 
+    group('generateFromObject()', () {
+      test('It should return an instance of InjectionToken', () {
+        InjectionToken token = const InjectionToken('test');
+
+        expect(token, InjectionToken.generateFromObject(token));
+      });
+
+      test('It should throw an assertion error, when null is given', () {
+        expect(() => InjectionToken.generateFromObject(null),
+            throwsAssertionError);
+      });
+
+      test('It should use the parameter as token reference value', () {
+        InjectionToken token = InjectionToken.generateFromObject('test');
+
+        expect(token.token, 'test');
+      });
+
+      test(
+          'It should call the toString method, when a non-string object is given ',
+          () {
+        InjectionToken token = InjectionToken.generateFromObject(TestClass);
+
+        expect(token.token, 'TestClass');
+      });
+    });
+
     group('operator==()', () {
       test('It should return true for non identical tokens with the same value',
           () {
         expect(const InjectionToken('a'), const InjectionToken('a'));
       });
-    });
-  });
-
-  group('InjectionToken.generateFromObject()', () {
-    test('It should return an instance of InjectionToken', () {
-      InjectionToken token = const InjectionToken('test');
-
-      expect(token, InjectionToken.generateFromObject(token));
-    });
-
-    test('It should throw an assertion error, when null is given', () {
-      expect(
-          () => InjectionToken.generateFromObject(null), throwsAssertionError);
-    });
-
-    test('It should use the parameter as token reference value', () {
-      InjectionToken token = InjectionToken.generateFromObject('test');
-
-      expect(token.token, 'test');
-    });
-
-    test(
-        'It should call the toString method, when a non-string object is given ',
-        () {
-      InjectionToken token = InjectionToken.generateFromObject(TestClass);
-
-      expect(token.token, 'TestClass');
     });
   });
 }
