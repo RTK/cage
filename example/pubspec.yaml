@@ -1,10 +1,7 @@
 name: cage_example
 description: A small example application using the cage framework
-version: 0.1.0
+version: 0.0.1
 author: Rouven T. Kruse
-homepage: https://cage.pub
+homepage: https://github.com/RTK/cage
 dependencies:
-  cage:
-    git:
-      url: https://github.com/RTK/cage.git
-      ref: develop
+  cage: ^1.0.0
