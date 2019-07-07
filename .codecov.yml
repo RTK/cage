@@ -1,0 +1,34 @@
+codecov:
+  branch: develop
+  notify:
+    require_ci_to_pass: yes
+  strict_yaml_branch: develop
+
+coverage:
+  precision: 2
+  round: down
+  range: "80...90"
+
+  status:
+    project:
+      default:
+        target: 80
+        threshold: 5
+    patch:
+        default:
+          target: 80
+          threshold: 0
+    changes: no
+
+parsers:
+  gcov:
+    branch_detection:
+      conditional: yes
+      loop: yes
+      method: yes
+      macro: no
+
+comment:
+  layout: "reach, diff, flags, files"
+  behavior: spammy
+  require_changes: false

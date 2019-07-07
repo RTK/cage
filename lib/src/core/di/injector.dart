@@ -2,7 +2,6 @@
 // Use of this source code is governed by an MIT-style license that can be
 // found in the LICENSE file.
 
-library cage;
-
-export 'src/core/_public.dart';
-export 'src/state_management/_public.dart';
+abstract class Injector {
+  T getDependency<T>(final Object injectionToken);
+}

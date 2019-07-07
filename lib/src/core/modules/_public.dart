@@ -2,7 +2,7 @@
 // Use of this source code is governed by an MIT-style license that can be
 // found in the LICENSE file.
 
-library cage;
+library cage.core.modules;
 
-export 'src/core/_public.dart';
-export 'src/state_management/_public.dart';
+export 'module.dart' show Module;
+export 'module_key.dart' show ModuleKey;
