@@ -1,5 +1,5 @@
 > Put your flutter in a cage 
-# Cage &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/RTK/cage/blob/master/LICENSE) [![Build Status](https://travis-ci.com/RTK/cage.svg?branch=develop)](https://travis-ci.com/RTK/cage) [![codecov](https://codecov.io/gh/RTK/cage/branch/develop/graph/badge.svg)](https://codecov.io/gh/RTK/cage)
+# Cage &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/RTK/cage/blob/master/LICENSE)  [![Pub Package](https://img.shields.io/pub/v/cage.svg)](https://pub.dartlang.org/packages/cage) [![Build Status](https://travis-ci.com/RTK/cage.svg?branch=develop)](https://travis-ci.com/RTK/cage) [![codecov](https://codecov.io/gh/RTK/cage/branch/develop/graph/badge.svg)](https://codecov.io/gh/RTK/cage)
 
 Cage is an opinionated framework for developing [Flutter](https://flutter.io) applications. Cage aims to provide structure and guidance in a new world of cross platform mobile app development.
 
