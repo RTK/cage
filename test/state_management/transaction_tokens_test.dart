@@ -21,12 +21,18 @@ void main() {
 
     group('operator ==()', () {
       test('It should compare the values when a CommitToken is passed', () {
+        const TransactionToken tt = const TransactionToken('test');
+
+        expect(tt, tt);
         expect(const TransactionToken('test'), const TransactionToken('test'));
       });
 
       test(
           'It should return true if different instances with the same key are compared',
           () {
+        const TransactionToken tt = const TransactionToken('test');
+
+        expect(tt == tt, true);
         expect(const TransactionToken('test') == const TransactionToken('test'),
             true);
       });

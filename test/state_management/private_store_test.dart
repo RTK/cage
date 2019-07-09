@@ -14,7 +14,7 @@ void main() {
     myStore = MyStore(myState);
   });
 
-  group('class Store', () {
+  group('(private) Store', () {
     test('It should create', () {
       expect(myStore, isNotNull);
     });

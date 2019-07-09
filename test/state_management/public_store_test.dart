@@ -7,7 +7,7 @@ import 'package:cage/src/_private.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  group('createStoreModuleAccessor()', () {
+  group('createPublicStore()', () {
     test('It should create a Store', () {
       final Public.Store store = createPublicStore(MyStore());
 
@@ -16,7 +16,7 @@ void main() {
     });
   });
 
-  group('Store', () {
+  group('(private) Store', () {
     group('dispatch()', () {
       test('It should call the internal stores dispatch method', () {
         final MyStore myStore = MyStore();
