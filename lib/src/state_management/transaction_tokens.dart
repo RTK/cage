@@ -52,8 +52,6 @@ class TransactionToken {
   bool operator ==(final dynamic other) {
     if (identical(this, other)) {
       return true;
-    } else if (other.runtimeType == runtimeType) {
-      return other.value == value;
     }
 
     return false;
