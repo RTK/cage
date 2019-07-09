@@ -1,11 +1,12 @@
 name: cage
-description: A flutter framework providing structure and guidance
+description: A flutter framework providing structure and guidance.
 version: 1.0.0
 author: Rouven T. Kruse <mail@rouvenkruse.de>
 homepage: https://github.com/RTK/cage
 
 environment:
   sdk: ">=2.2.0 <3.0.0"
+  flutter: "<=1.8.0"
 
 dependencies:
   flutter:
