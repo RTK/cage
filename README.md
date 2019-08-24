@@ -12,6 +12,7 @@ cage consists of three fundamental foundations:
 * Modules
 * Services
 * Widgets
+
 ## Modules
 A module represents a modular package to be used upon other modules or bootstrapping the application. A module declares services and widgets. Modules can import other modules, so that module parts can be reused and shared.
 

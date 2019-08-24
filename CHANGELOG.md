@@ -5,8 +5,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+###Added
+- Build integration
+    - Cage is using `build_runner` to transform framework source code
+- Added dependency `build_runner`
+    
 ### Changed
-- Use Flutter version 1.8.0 at least via engine restriction
+- Bump `Flutter` version to at least `1.9.5`
+- Bump `Dart` version to at least `2.5.0` (Flutter dependency)
+- Bump dependency `meta` version to at least `1.1.7`
 
 ### Removed
 - Removed some example test files
