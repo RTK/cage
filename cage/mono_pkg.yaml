@@ -1,0 +1,6 @@
+dart:
+  - stable
+
+stages:
+  - unit_test:
+      - command: flutter test

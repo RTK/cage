@@ -1,0 +1,9 @@
+dart:
+  - "2.4.0"
+
+stages:
+  - analyze:
+      - dartanalyzer
+      - dartfmt
+  - unit_test:
+      - command: test

@@ -1,0 +1,23 @@
+name: cage_build
+description: Build tools for Cage framework
+version: 1.1.0
+author: Rouven T. Kruse <mail@rouvenkruse.de>
+homepage: https://github.com/RTK/cage/cage_build
+
+environment:
+  sdk: ">=2.4.0 <3.0.0"
+
+dependencies:
+  cage:
+    git:
+      url: https://github.com/RTK/cage.git
+      ref: feature/build_tools
+  build_runner: ^1.6.7
+  flutter:
+    sdk: flutter
+  source_gen: ^0.9.4+4
+
+dev_dependencies:
+  build_test: ^0.10.8
+  flutter_test:
+    sdk: flutter
